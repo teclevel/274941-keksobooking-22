@@ -1,7 +1,7 @@
 // https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 
 const message = 'Не правильно введены данные';
-function getRandomIntInclusive(min, max) {
+const getRandomIntInclusive = function (min, max) {
   if (min >= 0 && min < max){
     min = Math.ceil(min);
     max = Math.floor(max);
