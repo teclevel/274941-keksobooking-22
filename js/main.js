@@ -14,7 +14,7 @@ getRandomIntInclusive(1, 4);
 
 const getRandomInclusive = function (min, max, digitsAfterPoint) {
   if (min >= 0 && min < max){
-    return +(Math.random() * (max- min) + min).toFixed(digitsAfterPoint);
+    return parseFloat((Math.random() * (max- min) + min).toFixed(digitsAfterPoint));
   }
   alert(message);
 }
