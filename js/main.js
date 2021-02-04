@@ -2,7 +2,7 @@
 
 const message = 'Не правильно введены данные';
 
-const getRandomIntInclusive = function (min, max) {
+const getRandomIntInclusive = (min, max) => {
   if (min >= 0 && min < max){
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -10,16 +10,22 @@ const getRandomIntInclusive = function (min, max) {
   }
   alert(message);
 }
-//getRandomIntInclusive(1, 4);
 
-
-const getRandomInclusive = function (min, max, digitsAfterPoint) {
+const getRandomInclusive = (min, max, digitsAfterPoint) => {
   if (min >= 0 && min < max){
     return parseFloat((Math.random() * (max- min) + min).toFixed(digitsAfterPoint));
   }
   alert(message);
 }
-//getRandomInclusive(0.6, 0.7, 2);
+
+const shuffle = (element) =>{
+  for (let i = 0; i < element.length; i++) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [element[i], element[j]] = [element[j], element[i]];
+  }
+  return element;
+};
+
 
 // В файле main.js на основе написанных в прошлом задании утилитарных функций напишите необходимые
 // функции для создания
@@ -49,34 +55,42 @@ const getRandomInclusive = function (min, max, digitsAfterPoint) {
 // 3 location, объект — местоположение в виде географических координат. Состоит из двух полей:
 // x, число с плавающей точкой — широта, случайное значение от 35.65000 до 35.70000
 // y, число с плавающей точкой — долгота, случайное значение от 139.70000 до 139.80000
+
 const ADVERTISMENT_COUNT = 10;
 const AUTHOR = {
-  avatar : 'img/avatars/user01.png'
+  avatar: 'img/avatars/user01.png',
 };
-
-// const LOCATION = {
-//   x : '35.65000',
-//   y : '139.70000'
-// };
 
 const OFFER = {
-  title : 'Заголовок предложения',
-  address : {
-    x : 35.65000,
-    y : 139.70000
-  },
-  price : 7000,
-  type :  ['palace', 'flat', 'house', 'bungalow'],
-  rooms : 5,
-  guests : 3,
-  checkin : ['12:00', '13:00', '14:00'],
-  checkout : ['12:00', '13:00', '14:00'],
-  features : ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-  description : 'Описание помещения',
+  title: 'Заголовок предложения',
+  address: '35.65000, 139.80000',
+  price: 7000,
+  type:  ['palace', 'flat', 'house', 'bungalow'],
+  rooms: 5,
+  guests: 3,
+  checkin: ['12:00', '13:00', '14:00'],
+  checkout: ['12:00', '13:00', '14:00'],
+  features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
+  description: 'Описание помещения',
   photos: ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-   'http://o0.github.io/assets/images/tokyo/hotel3.jpg']
+    'http://o0.github.io/assets/images/tokyo/hotel3.jpg'],
 };
+console.log(OFFER.features);
 
+// const countStart =  getRandomIntInclusive(0, OFFER.features.length);
+// const countEnd = getRandomIntInclusive(0, OFFER.features.length);
+// for (let i = countStart; i < countEnd; i++){
+//   console.log(i);
+// }
+//index = getRandomIntInclusive(0, 5);
+
+shuffle(OFFER.features);
+console.log(OFFER.features);
+
+const LOCATION = {
+  x: 35.65000,
+  y: 139.70000,
+};
 /* const randomFeatures = OFFER.features.map((value, index, array) => {
 
  array[index] = value;
@@ -84,26 +98,29 @@ const OFFER = {
   return array;
 });
  console.log(randomFeatures); */
-
+ 
+LOCATION.x = getRandomInclusive(35.65000, 35.70000, 5);
+LOCATION.y = getRandomInclusive(139.70000, 139.80000, 5);
 const getAdvertisement = () => {
   return {
-    avatar : AUTHOR.avatar = 'img/avatars/user' + '0' + getRandomIntInclusive(1, 8) + '.png',
-    offer : [OFFER.title,
-            OFFER[address.x] = getRandomInclusive(35.65000, 35.70000, 5),
-            OFFER.address.y = getRandomInclusive(139.70000, 139.80000, 5),
-            OFFER.price = getRandomIntInclusive(10000, 50000),
-            OFFER.type[getRandomIntInclusive(0, OFFER.type.length-1)],
-            OFFER.rooms = getRandomIntInclusive(1, 6),
-            OFFER.guests = getRandomIntInclusive(1, 10),
-            OFFER.checkin[getRandomIntInclusive(0, OFFER.checkin.length-1)],
-            OFFER.checkout[getRandomIntInclusive(0, OFFER.checkout.length-1)],
-            OFFER.description,
-            OFFER.features[getRandomIntInclusive(0, OFFER.features.length-1)],
-            OFFER.photos[getRandomIntInclusive(0, OFFER.photos.length-1)]],
-
-    location : ''
+    avatar: AUTHOR.avatar = 'img/avatars/user' + '0' + getRandomIntInclusive(1, 8) + '.png',
+    offer: [
+      OFFER.title,
+      OFFER.address = String(LOCATION.x) + ', ' + String(LOCATION.y),
+      OFFER.price = getRandomIntInclusive(10000, 50000),
+      OFFER.type[getRandomIntInclusive(0, OFFER.type.length-1)],
+      OFFER.rooms = getRandomIntInclusive(1, 6),
+      OFFER.guests = getRandomIntInclusive(1, 10),
+      OFFER.checkin[getRandomIntInclusive(0, OFFER.checkin.length-1)],
+      OFFER.checkout[getRandomIntInclusive(0, OFFER.checkout.length-1)],
+      OFFER.description,
+      OFFER.features[getRandomIntInclusive(0, OFFER.features.length-1)],
+      OFFER.photos[getRandomIntInclusive(0, OFFER.photos.length-1)],
+    ],
+    location: [LOCATION.x, LOCATION.y],
   }
 };
+
 console.log(getAdvertisement());
 
 const dataAdvertisment = new Array(ADVERTISMENT_COUNT).fill(null).map(() => getAdvertisement());
