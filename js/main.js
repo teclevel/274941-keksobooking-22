@@ -21,11 +21,11 @@ const OFFER = {
   photos: ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'],
 };
 
-const LOCATION = {
-  xMin: 35.65000,
-  xMax: 35.70000,
-  yMin: 139.70000,
-  yMax: 139.80000,
+const Location = {
+  X_MIN: 35.65000,
+  X_MAX: 35.70000,
+  Y_MIN: 139.70000,
+  Y_MAX: 139.80000,
 };
 
 const message = 'Не правильно введены данные';
@@ -51,13 +51,8 @@ const shuffleNewArray = (array) =>{
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
-
-  const lengthArray = getRandomIntInclusive(0, array.length);
-  const newArr = [];
-  for (let i = 0; i < lengthArray ; i++){
-    newArr[i] = array[i];
-  }
-  return newArr;
+  const newArray = array.slice(getRandomIntInclusive(0, array.length-1));
+  return newArray;
 };
 
 const getRandomLocation = (xMin, xMax, yMin, yMax) =>{
@@ -66,13 +61,13 @@ const getRandomLocation = (xMin, xMax, yMin, yMax) =>{
   return [x, y];
 };
 
-const getRandomIndexArray = (array)=> {
+const getRandomElementArray = (array)=> {
   const index = getRandomIntInclusive(0, array.length-1)
-  return index;
+  return array[index];
 };
 
 const getAdvertisement = () => {
-  const location = getRandomLocation (LOCATION.xMin, LOCATION.xMax, LOCATION.yMin, LOCATION.yMax);
+  const location = getRandomLocation(Location.X_MIN, Location.X_MAX, Location.Y_MIN, Location.Y_MAX);
   return {
     author:{
       avatar: 'img/avatars/user0' + getRandomIntInclusive(1, 8) + '.png',
@@ -81,9 +76,9 @@ const getAdvertisement = () => {
       title: OFFER.title,
       address: location[0] + ', ' + location[1],
       price: getRandomIntInclusive(10000, 50000),
-      type: OFFER.type[getRandomIndexArray(OFFER.type)],
-      checkin: OFFER.checkin[getRandomIndexArray(OFFER.checkin)],
-      checkout: OFFER.checkout[getRandomIndexArray(OFFER.checkout)],
+      type: getRandomElementArray(OFFER.type),
+      checkin: getRandomElementArray(OFFER.checkin),
+      checkout: getRandomElementArray(OFFER.checkout),
       rooms: getRandomIntInclusive(1, 6),
       guests: getRandomIntInclusive(1, 10),
       description: OFFER.description,
