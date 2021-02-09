@@ -1,8 +1,6 @@
 import {getRandomIntInclusive, shuffleNewArray, getRandomLocation, getRandomElementArray} from './util.js';
 import {OFFER, Location} from './datum-initial.js';
 
-
-
 const getAdvertisement = () => {
   const location = getRandomLocation(Location.X_MIN, Location.X_MAX, Location.Y_MIN, Location.Y_MAX);
   return {
