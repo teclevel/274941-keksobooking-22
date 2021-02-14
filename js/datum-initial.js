@@ -7,7 +7,7 @@ const OFFER = {
   guests: 3,
   checkin: ['12:00', '13:00', '14:00'],
   checkout: ['12:00', '13:00', '14:00'],
-  features: ['wi-fi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
+  features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
   description: 'Описание помещения',
   photos: ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'],
 };

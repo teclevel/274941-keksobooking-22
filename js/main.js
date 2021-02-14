@@ -1,6 +1,5 @@
-import {getAdvertisement} from './advertisement.js';
+//import {dataAdvertisements} from './advertisement.js';
+import './similar-element.js';
 
-const ADVERTISEMENT_COUNT = 10;
-const dataAdvertisements = new Array(ADVERTISEMENT_COUNT).fill(null).map(() => getAdvertisement());
 //console.log(dataAdvertisements);
-alert(dataAdvertisements);
+//alert(dataAdvertisements);
