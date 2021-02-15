@@ -17,6 +17,7 @@ dataAdvertisements.forEach((element) => {
   newAdvertisement.querySelector('.popup__text--capacity').textContent = element.offer.rooms + ' комнаты для ' + element.offer.guests + ' гостей';
   newAdvertisement.querySelector('.popup__text--time').textContent = 'Заезд после ' + element.offer.checkin + ', выезд до ' + element.offer.checkout;
   newAdvertisement.querySelector('.popup__description').textContent = element.offer.description;
+
   const popupPhotos = newAdvertisement.querySelector('.popup__photos');
   const popupPhoto = newAdvertisement.querySelector('.popup__photo');
   popupPhotos.removeChild(popupPhoto);
@@ -26,29 +27,22 @@ dataAdvertisements.forEach((element) => {
     popupPhotos.appendChild(popupPhoto.cloneNode(true));
   }
 
-  //const featuresList = newAdvertisement.querySelector('.popup__features');
-  //const featuresItem = featuresList.children;
+  const featuresList = newAdvertisement.querySelector('.popup__features');
+  const featuresItem = featuresList.children;
 
-
-  //console.log(featuresItem[1].classList.contains('popup__feature--' + element.offer.features[7]));
-
-  /* for (let i = featuresItem.length-1; i >= 0;  i--){
-    featuresList.(featuresItem[i]);
-  } */
-
-
-  /*   for (let i = 0; i < element.offer.features.length; i++){
-    for (let j = 1; j <= featuresItem.length; j++){
-      // console.log(featuresItem[i]);
-      // console.log(!featuresItem[i].classList.contains('popup__feature--' + element.offer.features[j]) && (j+1 === element.offer.features.length));
-      if (featuresItem[j].classList.contains('popup__feature--' + element.offer.features[i])){
-
-
-        console.log('count = '+ i + '  : ' +'length= ' + element.offer.features.length );
-        console.log(element.offer.features);
+  for (let i = featuresItem.length-1; i >= 0; i--){
+    const lengthFeatures = element.offer.features.length;
+    let sum = 0;
+    for (let j = 0; j < lengthFeatures; j++){
+      if (!featuresItem[i].classList.contains('popup__feature--' + element.offer.features[j])){
+        console.log (featuresItem[i].classList + ' - '+ element.offer.features[j]);
+        sum ++;
+        if (sum === lengthFeatures){
+          featuresList.removeChild(featuresItem[i]);
+        }
       }
     }
-  } */
+  }
 
 
 
