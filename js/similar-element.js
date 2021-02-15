@@ -5,8 +5,6 @@ const templateFragment = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
-//const similarListFragment = document.createDocumentFragment();
-
 dataAdvertisements.forEach((element) => {
   const newAdvertisement = templateFragment.cloneNode(true);
 
@@ -14,18 +12,50 @@ dataAdvertisements.forEach((element) => {
   newAdvertisement.querySelector('.popup__title').textContent = element.offer.title;
   newAdvertisement.querySelector('.popup__text--address').textContent = element.offer.address;
   newAdvertisement.querySelector('.popup__text--price').textContent = element.offer.price + ' ₽/ночь';
-  newAdvertisement.querySelector('.popup__text--capacity').textContent = element.offer.rooms + ' комнаты для ' + element.offer.guests + ' гостей';
+
+
+  const numberRooms = element.offer.rooms;
+  let prefixRooms =' комнат для ';
+  const numberGuests = element.offer.guests;
+  let prefixGuests = ' гостей';
+
+  switch (numberRooms % 10) {
+    case 1:
+      prefixRooms = ' комната для '
+      break;
+    case 2:
+    case 3:
+    case 4:
+      prefixRooms = ' комнаты для '
+      break;
+
+    default: prefixRooms =' комнат для ';
+      break;
+  }
+
+  switch (numberGuests % 10) {
+    case 1:
+      prefixGuests = ' гостя';
+      break;
+    default:
+      prefixGuests = ' гостей';
+      break;
+  }
+
+  newAdvertisement.querySelector('.popup__text--capacity').textContent = numberRooms + prefixRooms + numberGuests + prefixGuests;
   newAdvertisement.querySelector('.popup__text--time').textContent = 'Заезд после ' + element.offer.checkin + ', выезд до ' + element.offer.checkout;
   newAdvertisement.querySelector('.popup__description').textContent = element.offer.description;
+
 
   const popupPhotos = newAdvertisement.querySelector('.popup__photos');
   const popupPhoto = newAdvertisement.querySelector('.popup__photo');
   popupPhotos.removeChild(popupPhoto);
 
-  for(let i = 0; i < element.offer.photos.length; i++){
+  for (let i = 0; i < element.offer.photos.length; i++){
     popupPhoto.src = element.offer.photos[i];
     popupPhotos.appendChild(popupPhoto.cloneNode(true));
   }
+
 
   const featuresList = newAdvertisement.querySelector('.popup__features');
   const featuresItem = featuresList.children;
@@ -35,7 +65,6 @@ dataAdvertisements.forEach((element) => {
     let sum = 0;
     for (let j = 0; j < lengthFeatures; j++){
       if (!featuresItem[i].classList.contains('popup__feature--' + element.offer.features[j])){
-        console.log (featuresItem[i].classList + ' - '+ element.offer.features[j]);
         sum ++;
         if (sum === lengthFeatures){
           featuresList.removeChild(featuresItem[i]);
@@ -45,11 +74,25 @@ dataAdvertisements.forEach((element) => {
   }
 
 
+  const typeOfHousing = newAdvertisement.querySelector('.popup__type');
 
+  switch (element.offer.type) {
+    case 'palace':
+      typeOfHousing.textContent = 'Дворец';
+      break;
+    case 'flat':
+      typeOfHousing.textContent = 'Квартира';
+      break;
+    case 'house':
+      typeOfHousing.textContent = 'Дом';
+      break;
+    case 'bungalow':
+      typeOfHousing.textContent = 'Бунгало';
+      break;
+    default:
+      typeOfHousing.textContent = 'Любой тип жилья';
+  }
 
 
   advertisementList.appendChild(newAdvertisement);
-})
-
-
-console.log (dataAdvertisements);
+});
