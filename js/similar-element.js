@@ -47,44 +47,37 @@ dataAdvertisements.forEach((element) => {
   newAdvertisement.querySelector('.popup__description').textContent = element.offer.description;
 
 
+
   const popupPhotos = newAdvertisement.querySelector('.popup__photos');
   const popupPhoto = newAdvertisement.querySelector('.popup__photo');
   popupPhotos.removeChild(popupPhoto);
 
   element.offer.photos.forEach((item) => {
-      popupPhoto.src = item;
-      popupPhotos.appendChild(popupPhoto.cloneNode(true));
+    popupPhoto.src = item;
+    popupPhotos.appendChild(popupPhoto.cloneNode(true));
   });
 
 
+  // Не правильно выводятся данные
   const featuresList = newAdvertisement.querySelector('.popup__features');
-  const featuresItems = newAdvertisement.querySelectorAll('.popup__feature');//featuresList.children;
+  const featuresItems = newAdvertisement.querySelectorAll('.popup__feature');
+  const featureItem = newAdvertisement.querySelector('.popup__feature')
+  //featuresList.removeChild(featureItem);
 
   featuresItems.forEach((item) => {
-  featuresList.removeChild(item);
+    featuresList.removeChild(item);
+  });
 
-});
+  element.offer.features.forEach((item) => {
+    featureItem.classList.add('popup__feature--'+ item);
+    featuresList.appendChild(featureItem.cloneNode(true));
+  });
+  // console.log(featuresItems)
+  // console.log(element.offer.features)
 
-// featuresItems.forEach((item) =>
-    //featuresList.appendChild(item.cloneNode(true));
-  // });
-  console.log(featuresItems)
-
-
-  // for (let i = featuresItem.length-1; i >= 0; i--){
-  //   const lengthFeatures = element.offer.features.length;
-  //   let sum = 0;
-  //   for (let j = 0; j < lengthFeatures; j++){
-  //     if (!featuresItem[i].classList.contains('popup__feature--' + element.offer.features[j])){
-  //       sum ++;
-  //       if (sum === lengthFeatures){
-  //         featuresList.removeChild(featuresItem[i]);
-  //       }
-  //     }
-  //   }
-  // }
-
-  /* const featuresList = newAdvertisement.querySelector('.popup__features');
+  // версия  с for
+  /*
+  const featuresList = newAdvertisement.querySelector('.popup__features');
   const featuresItem = featuresList.children;
 
   for (let i = featuresItem.length-1; i >= 0; i--){
@@ -98,7 +91,8 @@ dataAdvertisements.forEach((element) => {
         }
       }
     }
-  } */
+  }
+  */
 
 
   const typeOfHousing = newAdvertisement.querySelector('.popup__type');
