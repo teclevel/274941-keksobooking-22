@@ -51,13 +51,40 @@ dataAdvertisements.forEach((element) => {
   const popupPhoto = newAdvertisement.querySelector('.popup__photo');
   popupPhotos.removeChild(popupPhoto);
 
-  for (let i = 0; i < element.offer.photos.length; i++){
-    popupPhoto.src = element.offer.photos[i];
-    popupPhotos.appendChild(popupPhoto.cloneNode(true));
-  }
+  element.offer.photos.forEach((item) => {
+      popupPhoto.src = item;
+      popupPhotos.appendChild(popupPhoto.cloneNode(true));
+  });
 
 
   const featuresList = newAdvertisement.querySelector('.popup__features');
+  const featuresItems = newAdvertisement.querySelectorAll('.popup__feature');//featuresList.children;
+
+  featuresItems.forEach((item) => {
+  featuresList.removeChild(item);
+
+});
+
+// featuresItems.forEach((item) =>
+    //featuresList.appendChild(item.cloneNode(true));
+  // });
+  console.log(featuresItems)
+
+
+  // for (let i = featuresItem.length-1; i >= 0; i--){
+  //   const lengthFeatures = element.offer.features.length;
+  //   let sum = 0;
+  //   for (let j = 0; j < lengthFeatures; j++){
+  //     if (!featuresItem[i].classList.contains('popup__feature--' + element.offer.features[j])){
+  //       sum ++;
+  //       if (sum === lengthFeatures){
+  //         featuresList.removeChild(featuresItem[i]);
+  //       }
+  //     }
+  //   }
+  // }
+
+  /* const featuresList = newAdvertisement.querySelector('.popup__features');
   const featuresItem = featuresList.children;
 
   for (let i = featuresItem.length-1; i >= 0; i--){
@@ -71,7 +98,7 @@ dataAdvertisements.forEach((element) => {
         }
       }
     }
-  }
+  } */
 
 
   const typeOfHousing = newAdvertisement.querySelector('.popup__type');
