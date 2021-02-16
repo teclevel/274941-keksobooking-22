@@ -1,11 +1,14 @@
-import {dataAdvertisements} from './advertisement.js';
+import {getArrayAdvertisements} from './advertisement.js';
 
 const advertisementList = document.querySelector('.map__canvas');
 const templateFragment = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
-dataAdvertisements.forEach((element) => {
+const similarAdvertisements = getArrayAdvertisements();
+const similarListFragment = document.createDocumentFragment();
+
+similarAdvertisements.forEach((element) => {
   const newAdvertisement = templateFragment.cloneNode(true);
 
   newAdvertisement.querySelector('.popup__avatar').src = element.author.avatar;
@@ -96,24 +99,18 @@ dataAdvertisements.forEach((element) => {
 
 
   const typeOfHousing = newAdvertisement.querySelector('.popup__type');
+  const Housing = {
+    palace: 'Дворец',
+    flat: 'Квартира',
+    house: 'Дом',
+    bungalow: 'Бунгало',
+  };
 
-  switch (element.offer.type) {
-    case 'palace':
-      typeOfHousing.textContent = 'Дворец';
-      break;
-    case 'flat':
-      typeOfHousing.textContent = 'Квартира';
-      break;
-    case 'house':
-      typeOfHousing.textContent = 'Дом';
-      break;
-    case 'bungalow':
-      typeOfHousing.textContent = 'Бунгало';
-      break;
-    default:
-      typeOfHousing.textContent = 'Любой тип жилья';
-  }
-
+  const getTypeHousing = (element, type) => {
+    return element.textContent = Housing[type];
+  };
+  getTypeHousing(typeOfHousing, element.offer.type);
 
   advertisementList.appendChild(newAdvertisement);
 });
+advertisementList.appendChild(similarListFragment);

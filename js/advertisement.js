@@ -1,7 +1,7 @@
 import {getRandomIntInclusive, shuffleNewArray, getRandomLocation, getRandomElementArray} from './util.js';
 import {OFFER, Location} from './datum-initial.js';
 
-const ADVERTISEMENT_COUNT = 1;
+const ADVERTISEMENT_COUNT = 10;
 
 const getAdvertisement = () => {
   const location = getRandomLocation(Location.X_MIN, Location.X_MAX, Location.Y_MIN, Location.Y_MAX);
@@ -29,6 +29,6 @@ const getAdvertisement = () => {
   }
 };
 
-const dataAdvertisements = new Array(ADVERTISEMENT_COUNT).fill(null).map(() => getAdvertisement());
+const getArrayAdvertisements = () =>  new Array(ADVERTISEMENT_COUNT).fill(null).map(() => getAdvertisement());
 
-export {dataAdvertisements};
+export {getArrayAdvertisements};
