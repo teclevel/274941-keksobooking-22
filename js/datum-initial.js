@@ -19,4 +19,11 @@ const Location = {
   Y_MAX: 139.80000,
 };
 
-export {OFFER, Location};
+const Housing = {
+  palace: 'Дворец',
+  flat: 'Квартира',
+  house: 'Дом',
+  bungalow: 'Бунгало',
+};
+
+export {OFFER, Location, Housing};
