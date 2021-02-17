@@ -9,7 +9,7 @@ const similarListFragment = document.createDocumentFragment();
 
 const similarAdvertisements = getArrayAdvertisements();
 
-similarAdvertisements.forEach(({author, offer, }) => {
+similarAdvertisements.forEach(({author, offer}) => {
   const newAdvertisement = templateFragment.cloneNode(true);
   newAdvertisement.classList.add('visually-hidden');
   newAdvertisement.querySelector('.popup__avatar').src = author.avatar;
