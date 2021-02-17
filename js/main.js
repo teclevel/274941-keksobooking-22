@@ -1,5 +1,10 @@
-//import {dataAdvertisements} from './advertisement.js';
 import './similar-element.js';
 
-//console.log(dataAdvertisements);
-//alert(dataAdvertisements);
+
+const popup = document.querySelectorAll('.popup');
+
+const showAdvertisement = (element, n) => {
+   element[n].classList.remove('visually-hidden');
+};
+
+showAdvertisement(popup, 0);
