@@ -1,14 +1,19 @@
+import {disableSite, activateSite} from './activation-site.js';
+
 /* global L:readonly */
-const map= L.map('map-canvas')
-.on('load', () => {                          //подписка на события. здесь инициализация карты
-  console.log('Карта инициализирована')
-})
+
+disableSite();
+
+const map = L.map('map-canvas')
+  .on('load', () => {                          //подписка на события. здесь инициализация карты
+    activateSite();
+  })
   .setView({
     lat: 35.68170,
     lng: 139.75388,
   }, 10);
 
-  L.tileLayer(                                //добавляет карту от OpenStreetMap
+L.tileLayer(                                //добавляет карту от OpenStreetMap
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -16,9 +21,11 @@ const map= L.map('map-canvas')
 ).addTo(map);
 
 const mainPinIcon = L.icon({
-  iconUrl: './leaflet/images/marker-icon.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
+  iconUrl: './leaflet/images/marker-icon-2x.png',
+  iconSize: [50, 82],
+  iconAnchor: [25, 82],
+  // iconSize: [25, 41],
+  // iconAnchor: [12, 41],
 });
 
 const marker = L.marker(
@@ -34,13 +41,20 @@ const marker = L.marker(
 
 marker.addTo(map);
 
+const mainAddress = document.querySelector('#address');
+mainAddress.value = marker._latlng.lat +', '+ marker._latlng.lng
+
 marker.on('moveend', (evt) => {
-  console.log(evt.target.getLatLng());        //передает координаты маркера
+  const position = evt.target.getLatLng();     //передает координаты маркера
+  mainAddress.value = position.lat.toFixed(5) + ', ' + position.lng.toFixed(5);
+  mainAddress.setAttribute('readonly', '');
 });
+
+
 
 //marker.remove();                            //удаление маркера
 
-const points = [
+/* const points = [
   {
     title: 'Футура',
     lat: 59.96925,
@@ -93,4 +107,4 @@ points.forEach(({lat, lng, title}) => {
   marker
     .addTo(map)
     .bindPopup(title);
-});
+}); */

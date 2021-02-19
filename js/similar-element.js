@@ -1,7 +1,7 @@
 import {getArrayAdvertisements} from './advertisement.js';
 import {Housing} from './datum-initial.js'
 
-/* const advertisementList = document.querySelector('.map__canvas');
+const advertisementList = document.querySelector('.map__canvas');
 const templateFragment = document.querySelector('#card')
   .content
   .querySelector('.popup');
@@ -87,4 +87,4 @@ similarAdvertisements.forEach(({author, offer}) => {
   similarListFragment.appendChild(newAdvertisement);
 });
 
-advertisementList.appendChild(similarListFragment); */
+advertisementList.appendChild(similarListFragment);
