@@ -29,6 +29,8 @@ const getAdvertisement = () => {
   }
 };
 
-const getArrayAdvertisements = () =>  new Array(ADVERTISEMENT_COUNT).fill(null).map(() => getAdvertisement());
+//const getArrayAdvertisements = () =>  new Array(ADVERTISEMENT_COUNT).fill(null).map(() => getAdvertisement());
+const arrayAdvertisements = new Array(ADVERTISEMENT_COUNT).fill(null).map(() => getAdvertisement());
 
-export {getArrayAdvertisements};
+//export {getArrayAdvertisements};
+export {arrayAdvertisements};

@@ -1,4 +1,5 @@
-import {getArrayAdvertisements} from './advertisement.js';
+//import {getArrayAdvertisements} from './advertisement.js';
+import {arrayAdvertisements} from './advertisement.js';
 import {Housing} from './datum-initial.js'
 
 const advertisementList = document.querySelector('.map__canvas');
@@ -8,9 +9,10 @@ const templateFragment = document.querySelector('#card')
 const similarListFragment = document.createDocumentFragment();
 
 
-const similarAdvertisements = getArrayAdvertisements();
+// const similarAdvertisements = getArrayAdvertisements();
 
-similarAdvertisements.forEach(({author, offer}) => {
+// similarAdvertisements.forEach(({author, offer}) => {
+  arrayAdvertisements.forEach(({author, offer}) => {
   const newAdvertisement = templateFragment.cloneNode(true);
   newAdvertisement.classList.add('visually-hidden');
   newAdvertisement.querySelector('.popup__avatar').src = author.avatar;

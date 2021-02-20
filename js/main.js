@@ -7,4 +7,4 @@ const showAdvertisement = (element, n) => {
   element[n].classList.remove('visually-hidden');
 };
 
-//showAdvertisement(advertisements, 0);
+showAdvertisement(advertisements, 0);

@@ -1,6 +1,6 @@
-import {disableSite, activateSite} from './activation-site.js';
-
 /* global L:readonly */
+import {disableSite, activateSite} from './activation-site.js';
+import {arrayAdvertisements} from './advertisement.js';
 
 disableSite();
 
@@ -21,10 +21,10 @@ L.tileLayer(                                //добавляет карту от
 ).addTo(map);
 
 const mainPinIcon = L.icon({
-  iconUrl: './leaflet/images/marker-icon-2x.png',
+  iconUrl: './img/main-pin.svg',
   iconSize: [50, 82],
   iconAnchor: [25, 82],
-  // iconSize: [25, 41],
+  // iconSize: [24, 41],
   // iconAnchor: [12, 41],
 });
 
@@ -50,43 +50,40 @@ marker.on('moveend', (evt) => {
   mainAddress.setAttribute('readonly', '');
 });
 
-
-
 //marker.remove();                            //удаление маркера
 
-/* const points = [
-  {
-    title: 'Футура',
-    lat: 59.96925,
-    lng: 30.31730,
-  },
-  {
-    title: 'Шаверма',
-    lat: 59.96783,
-    lng: 30.31258,
-  },
-  {
-    title: 'Франк',
-    lat: 59.95958,
-    lng: 30.30228,
-  },
-  {
-    title: 'Ginza',
-    lat: 59.97292,
-    lng: 30.31982,
-  },
-];
+console.log(arrayAdvertisements)
 
-points.forEach(({lat, lng}) => {
+arrayAdvertisements.forEach(({location}) => {
+  const pinIcon = L.icon({
+    iconUrl: './img/pin.svg',
+    iconSize: [50, 82],
+    iconAnchor: [25, 82],
+    // iconSize: [24, 41],
+    // iconAnchor: [12, 41],
+  });
+
+  const marker = L.marker(
+    [location.x, location.y],
+    {
+      pinIcon,
+    },
+
+  );
+
+  marker.addTo(map);
+});
+
+/* points.forEach(({lat, lng}) => {
   const marker = L.marker({
     lat,
     lng,
   });
 
   marker.addTo(map);
-});
+}); */
 
-
+/*
 points.forEach(({lat, lng, title}) => {
   const icon = L.icon({
     iconUrl: './leaflet/images/marker-icon.png',
