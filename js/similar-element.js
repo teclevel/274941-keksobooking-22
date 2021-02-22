@@ -1,17 +1,10 @@
-import {getArrayAdvertisements} from './advertisement.js';
-
-const advertisementList = document.querySelector('.map__canvas');
-const templateFragment = document.querySelector('#card')
-  .content
-  .querySelector('.popup');
-const similarListFragment = document.createDocumentFragment();
+import {Housing} from './datum-initial.js'
 
 
-const similarAdvertisements = getArrayAdvertisements();
-
-similarAdvertisements.forEach(({author, offer}) => {
-  const newAdvertisement = templateFragment.cloneNode(true);
-  newAdvertisement.classList.add('visually-hidden');
+const createCustomPopup = (point) => {
+  const {author, offer} = point;
+  const balloonTemplate = document.querySelector('#card').content.querySelector('.popup');
+  const newAdvertisement = balloonTemplate.cloneNode(true);
   newAdvertisement.querySelector('.popup__avatar').src = author.avatar;
   newAdvertisement.querySelector('.popup__title').textContent = offer.title;
   newAdvertisement.querySelector('.popup__text--address').textContent = offer.address;
@@ -76,20 +69,13 @@ similarAdvertisements.forEach(({author, offer}) => {
 
 
   const typeOfHousing = newAdvertisement.querySelector('.popup__type');
-  const Housing = {
-    palace: 'Дворец',
-    flat: 'Квартира',
-    house: 'Дом',
-    bungalow: 'Бунгало',
-  };
 
-  const getTypeHousing = (element, type) => {
+  const setTypeHousing = (element, type) => {
     return element.textContent = Housing[type];
   };
-  getTypeHousing(typeOfHousing, offer.type);
+  setTypeHousing(typeOfHousing, offer.type);
 
+  return newAdvertisement;
+};
 
-  similarListFragment.appendChild(newAdvertisement);
-});
-
-advertisementList.appendChild(similarListFragment);
+export {createCustomPopup};
