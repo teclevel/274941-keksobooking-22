@@ -1,17 +1,17 @@
-const formNotice = document.querySelector('.ad-form');
-const noticeUser = formNotice.querySelector('.ad-form-header');
-const noticeUsers = formNotice.querySelectorAll('.ad-form__element');
+const formAdvertisement = document.querySelector('.ad-form');
+const fieldsetUserData = formAdvertisement.querySelector('.ad-form-header');
+const fieldsAd = formAdvertisement.querySelectorAll('.ad-form__element');
 const formFilter = document.querySelector('.map__filters');
 const filters = formFilter.querySelectorAll('.map__filter');
 const filterFeatures = formFilter.querySelector('.map__features');
 
 const disableSite = () => {
-  formNotice.classList.add('ad-form--disabled');
+  formAdvertisement.classList.add('ad-form--disabled');
   formFilter.classList.add('map__filters--disabled');
-  noticeUser.setAttribute('disabled','');
+  fieldsetUserData.setAttribute('disabled','');
   filterFeatures.setAttribute('disabled','');
 
-  noticeUsers.forEach((element) => {
+  fieldsAd.forEach((element) => {
     element.setAttribute('disabled','');
   });
 
@@ -20,13 +20,13 @@ const disableSite = () => {
   });
 };
 
-const activateSite = () =>{
-  formNotice.classList.toggle('ad-form--disabled');
+const activateSite = () => {
+  formAdvertisement.classList.toggle('ad-form--disabled');
   formFilter.classList.toggle('map__filters--disabled');
-  noticeUser.removeAttribute('disabled','');
+  fieldsetUserData.removeAttribute('disabled','');
   filterFeatures.removeAttribute('disabled','');
 
-  noticeUsers.forEach((element) => {
+  fieldsAd.forEach((element) => {
     element.removeAttribute('disabled','');
   });
 
@@ -34,5 +34,6 @@ const activateSite = () =>{
     element.removeAttribute('disabled','');
   });
 };
+
 export {disableSite};
 export {activateSite};
