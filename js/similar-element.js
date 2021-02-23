@@ -1,9 +1,10 @@
 import {Housing} from './datum-initial.js'
+import { getValueMap } from './util.js';
 
+const balloonTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 const createCustomPopup = (point) => {
   const {author, offer} = point;
-  const balloonTemplate = document.querySelector('#card').content.querySelector('.popup');
   const newAdvertisement = balloonTemplate.cloneNode(true);
   newAdvertisement.querySelector('.popup__avatar').src = author.avatar;
   newAdvertisement.querySelector('.popup__title').textContent = offer.title;
@@ -69,11 +70,8 @@ const createCustomPopup = (point) => {
 
 
   const typeOfHousing = newAdvertisement.querySelector('.popup__type');
+  typeOfHousing.textContent = getValueMap(Housing, offer.type);
 
-  const setTypeHousing = (element, type) => {
-    return element.textContent = Housing[type];
-  };
-  setTypeHousing(typeOfHousing, offer.type);
 
   return newAdvertisement;
 };
