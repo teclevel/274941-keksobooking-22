@@ -36,8 +36,4 @@ const getRandomElementArray = (array)=> {
   return array[index];
 };
 
-const getValueMap = (map, name) => {
-  return  map[name];
-};
-
-export {getRandomIntInclusive, shuffleNewArray, getRandomLocation, getRandomElementArray, getValueMap};
+export {getRandomIntInclusive, shuffleNewArray, getRandomLocation, getRandomElementArray};
