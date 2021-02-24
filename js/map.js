@@ -1,12 +1,13 @@
 /* global L:readonly */
-import {disableSite, activateSite} from './activation-site.js';
+import {toggleSite} from './activation-site.js';
 import {arrayAdvertisements} from './advertisement.js';
 import {createCustomPopup} from './similar-element.js';
-disableSite();
+
+toggleSite(true);
 
 const map = L.map('map-canvas')
   .on('load', () => {                          //подписка на события. здесь инициализация карты
-    activateSite();
+    toggleSite(false);
   })
   .setView({
     lat: 35.68170,
