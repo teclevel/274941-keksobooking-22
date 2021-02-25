@@ -2,6 +2,7 @@
 import {toggleSite} from './activation-site.js';
 import {arrayAdvertisements} from './advertisement.js';
 import {createCustomPopup} from './similar-element.js';
+//import {fetchAdvertisement} from './create-fetch.js';
 
 toggleSite(true);
 
