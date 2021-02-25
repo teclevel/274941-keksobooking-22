@@ -11,16 +11,7 @@ priceHousing.placeholder = price;
 
 typeHousing.addEventListener('change', () => {
   priceHousing.placeholder = Price[typeHousing.value]
-  priceHousing.value = priceHousing.placeholder;
-});
-
-priceHousing.addEventListener('change', () => {
-  //console.log('сработало')
-  let minPrice = priceHousing.placeholder;
-  if (priceHousing.value < minPrice){
-    priceHousing.value = minPrice;
-    //console.log(priceHousing.value, minPrice)
-  }
+  priceHousing.min = priceHousing.placeholder;
 });
 
 
