@@ -1,8 +1,6 @@
 /* global L:readonly */
 import {toggleSite} from './activation-site.js';
-import {arrayAdvertisements} from './advertisement.js';
 import {createCustomPopup} from './similar-element.js';
-//import {fetchAdvertisement} from './create-fetch.js';
 
 toggleSite(true);
 
@@ -50,33 +48,36 @@ marker.on('moveend', (evt) => {
   mainAddress.value = `${position.lat.toFixed(5)}, ${position.lng.toFixed(5)}`;
 });
 
-//marker.remove();                            //удаление маркера
 
-arrayAdvertisements.forEach((point) => {
-  const {x:lat, y:lng} = point.location;
+const addMarkers = (arrayAdvertisements)=>{
+  arrayAdvertisements.forEach((point) => {
+    const {lat, lng} = point.location;
 
-  const icon = L.icon({
-    iconUrl: './img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
+    const icon = L.icon({
+      iconUrl: './img/pin.svg',
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+    });
 
-  const marker = L.marker(
-    {
-      lat,
-      lng,
-    },
-    {
-      icon,
-    },
-  );
-
-  marker
-    .addTo(map)
-    .bindPopup(
-      createCustomPopup(point),
+    const marker = L.marker(
       {
-        keepInView: true,
+        lat,
+        lng,
+      },
+      {
+        icon,
       },
     );
-});
+
+    marker
+      .addTo(map)
+      .bindPopup(
+        createCustomPopup(point),
+        {
+          keepInView: true,
+        },
+      );
+  });
+}
+
+export {addMarkers};
