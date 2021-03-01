@@ -1,9 +1,20 @@
+import {isEscEvent, isEnterEvent} from './util.js';
+
+const TIMER_POPUP_SUCCESS = 3000;
+
+const buttonSubmit = document.querySelector('.ad-form__submit')
 
 const templateSuccess = document.querySelector('#success')
   .content.querySelector('.success');
+
 const templateError = document.querySelector('#error')
   .content.querySelector('.error');
+const popupError = templateError.cloneNode(true);
+popupError.classList.add('hidden');
+document.body.append(popupError);
+const buttonError = document.querySelector('.error__button');
 
+const adForm = document.querySelector('.ad-form');
 
 const openPopupSuccess = () => {
   const popupSuccess = templateSuccess.cloneNode(true);
@@ -11,26 +22,36 @@ const openPopupSuccess = () => {
 
   setTimeout(() => {
     popupSuccess.remove();
-  },3000);
+    adForm.reset();
+  },TIMER_POPUP_SUCCESS);
 };
-
 
 const openPopupError = () => {
-  const popupError = templateError.cloneNode(true);
-  document.body.append(popupError);
-  const buttonError = document.querySelector('.error__button');
-
-  buttonError.addEventListener('click', () => {
-    popupError.remove();
-  });
-
-  document.addEventListener('keydown', (evt) =>{
-    if (evt.key === ('Escape'|| 'Esc')){
-      popupError.remove();
-    }
-  });
+  popupError.classList.remove('hidden');
+  buttonSubmit.toggleAttribute('disabled', true);
 };
 
+const closePopupError = () => {
+  popupError.classList.add('hidden');
+  buttonSubmit.toggleAttribute('disabled', false);
+  //popupError.remove();
+};
+
+buttonError.addEventListener('click', () => {
+  closePopupError();
+});
+
+document.addEventListener('keydown', (evt) => {
+  if (isEscEvent(evt)){
+    closePopupError();
+  }
+});
+
+document.addEventListener('keydown', (evt) =>{
+  if (isEnterEvent(evt)){
+    closePopupError();
+  }
+});
 
 export {openPopupSuccess};
 export {openPopupError};

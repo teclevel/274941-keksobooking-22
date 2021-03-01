@@ -35,11 +35,11 @@ const getRandomElementArray = (array)=> {
   const index = getRandomIntInclusive(0, array.length-1)
   return array[index];
 };
-//не используется
+
 const isEscEvent = (evt) => {
   return evt.key === 'Escape' || evt.key === 'Esc';
 };
-//не используется
+
 const isEnterEvent = (evt) => {
   return evt.key === 'Enter';
 };

@@ -1,5 +1,6 @@
 import {Price} from './datum-initial.js';
-import {openPopupSuccess, openPopupError} from './popup.js';
+import {openPopupError} from './popup.js';
+import {sendData} from './create-fetch.js';
 
 const typeHousing = document.querySelector('#type');
 const priceHousing = document.querySelector('#price');
@@ -25,34 +26,16 @@ const selectTime = (time1, time2) => {
 selectTime(timeIn, timeOut);
 selectTime(timeOut, timeIn);
 
-const setUserFormSubmit = (onSuccess) =>{
-//const setUserFormSubmit = () =>{
-
+const setUserFormSubmit = (onSuccess) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
-    const formData = new FormData(evt.target);
-
-    fetch(
-      'https://22.javascript.pages.academy/keksobooking',
-      {
-        method: 'POST',
-        body: formData,
-      },
-    )
-
-      .then((response) => {
-        if (response.ok) {
-          //onSuccess();
-          adForm.reset();
-          openPopupSuccess();
-          return response.json();
-        }
-        openPopupError();
-      })
-
+    sendData(
+      () => onSuccess(),
+      () => openPopupError(),
+      new FormData(evt.target),
+    );
   });
 };
 
 export {setUserFormSubmit};
-
