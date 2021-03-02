@@ -1,6 +1,7 @@
 /* global L:readonly */
 import {toggleSite} from './activation-site.js';
 import {createCustomPopup} from './similar-element.js';
+import {AddressLocation} from './datum-initial.js';
 
 toggleSite(true);
 
@@ -8,10 +9,8 @@ const map = L.map('map-canvas')
   .on('load', () => {                          //подписка на события. здесь инициализация карты
     toggleSite(false);
   })
-  .setView({
-    lat: 35.68170,
-    lng: 139.75388,
-  }, 10);
+  .setView(
+    AddressLocation, 10);
 
 L.tileLayer(                                   //добавляет карту от OpenStreetMap
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -20,33 +19,37 @@ L.tileLayer(                                   //добавляет карту �
   },
 ).addTo(map);
 
-const mainPinIcon = L.icon({
-  iconUrl: './img/main-pin.svg',
-  iconSize: [50, 82],
-  iconAnchor: [25, 82],
-});
-
-const marker = L.marker(                       //маркер Токио
-  {
-    lat: 35.68170,
-    lng: 139.75388,
-  },
-  {
-    draggable: true,                           //разрешение на передвижение маркера
-    icon: mainPinIcon,
-  },
-);
-
-marker.addTo(map);
 
 const mainAddress = document.querySelector('#address');
-mainAddress.value = `${marker._latlng.lat}, ${marker._latlng.lng}`
 mainAddress.setAttribute('readonly', '');
 
-marker.on('moveend', (evt) => {
-  const position = evt.target.getLatLng();     //передает координаты маркера
-  mainAddress.value = `${position.lat.toFixed(5)}, ${position.lng.toFixed(5)}`;
-});
+
+const setMainMarker = (location) => {
+
+  const mainPinIcon = L.icon({
+    iconUrl: './img/main-pin.svg',
+    iconSize: [50, 82],
+    iconAnchor: [25, 82],
+  });
+
+  const marker = L.marker(                       //маркер Токио
+    location,
+    {
+      draggable: true,                           //разрешение на передвижение маркера
+      icon: mainPinIcon,
+    },
+  );
+
+  marker.addTo(map);
+
+  mainAddress.value = `${marker._latlng.lat}, ${marker._latlng.lng}`
+
+  marker.on('moveend', (evt) => {
+    const position = evt.target.getLatLng();     //передает координаты маркера
+    mainAddress.value = `${position.lat.toFixed(5)}, ${position.lng.toFixed(5)}`;
+  });
+};
+setMainMarker(AddressLocation);
 
 
 const addMarkers = (arrayAdvertisements)=>{
@@ -81,3 +84,4 @@ const addMarkers = (arrayAdvertisements)=>{
 }
 
 export {addMarkers};
+export {setMainMarker};

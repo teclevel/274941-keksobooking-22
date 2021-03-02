@@ -12,4 +12,8 @@ const Price = {
   bungalow: '0',
 };
 
-export {Housing, Price};
+const AddressLocation = {
+  lat: '35.68170',
+  lng: '139.75388',
+}
+export {Housing, Price, AddressLocation};

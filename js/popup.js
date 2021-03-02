@@ -1,3 +1,5 @@
+import { AddressLocation } from './datum-initial.js';
+import { setMainMarker } from './map.js';
 import {isEscEvent, isEnterEvent} from './util.js';
 
 const TIMER_POPUP_SUCCESS = 3000;
@@ -13,6 +15,7 @@ const popupError = templateError.cloneNode(true);
 popupError.classList.add('hidden');
 document.body.append(popupError);
 const buttonError = document.querySelector('.error__button');
+const buttonReset = document.querySelector('.ad-form__reset');
 
 const adForm = document.querySelector('.ad-form');
 
@@ -23,6 +26,7 @@ const openPopupSuccess = () => {
   setTimeout(() => {
     popupSuccess.remove();
     adForm.reset();
+    setMainMarker(AddressLocation);
   },TIMER_POPUP_SUCCESS);
 };
 
@@ -39,6 +43,10 @@ const closePopupError = () => {
 
 buttonError.addEventListener('click', () => {
   closePopupError();
+});
+
+buttonReset.addEventListener('click', () => {
+  console.log('reset')//setMainMarker(AddressLocation);
 });
 
 document.addEventListener('keydown', (evt) => {
