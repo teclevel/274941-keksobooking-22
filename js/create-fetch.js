@@ -1,17 +1,10 @@
 const getData = (onSuccess) => {
   fetch('https://22.javascript.pages.academy/keksobooking/data')
-    .then((response) => {
-      if(response.ok){
-        return response.json();
-      }
-    })
-    .then ((addMarkers) => {
-      onSuccess(addMarkers);
-    })
-    // .catch ((err) => {
-    //   console.error(err);
-    // });
+    .then((response) => response.json())
+    .then(onSuccess);
 };
+
+
 
 const sendData = (onSuccess, onFail, body) => {
   fetch(
