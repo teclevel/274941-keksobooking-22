@@ -23,23 +23,22 @@ L.tileLayer(                                   //добавляет карту �
 const mainAddress = document.querySelector('#address');
 mainAddress.setAttribute('readonly', '');
 
-
+let marker; //const ???
 const setMainMarker = (location) => {
 
-  const mainPinIcon = L.icon({
+  const mainPinIcon = L.icon({                  //созд маркер
     iconUrl: './img/main-pin.svg',
     iconSize: [50, 82],
     iconAnchor: [25, 82],
   });
 
-  const marker = L.marker(                       //маркер Токио
+  marker = L.marker(
     location,
     {
       draggable: true,                           //разрешение на передвижение маркера
       icon: mainPinIcon,
     },
   );
-
   marker.addTo(map);
 
   mainAddress.value = `${marker._latlng.lat}, ${marker._latlng.lng}`
@@ -49,8 +48,16 @@ const setMainMarker = (location) => {
     mainAddress.value = `${position.lat.toFixed(5)}, ${position.lng.toFixed(5)}`;
   });
 };
+
 setMainMarker(AddressLocation);
 
+const deleteMarker = () => {
+  marker.remove();
+};
+
+const setInitialAddress = () => {
+  mainAddress.value = `${AddressLocation.lat}, ${AddressLocation.lng}`;
+};
 
 const addMarkers = (arrayAdvertisements)=>{
   arrayAdvertisements.forEach((point) => {
@@ -83,5 +90,4 @@ const addMarkers = (arrayAdvertisements)=>{
   });
 }
 
-export {addMarkers};
-export {setMainMarker};
+export {deleteMarker, addMarkers, setMainMarker, setInitialAddress};
