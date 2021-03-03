@@ -1,5 +1,5 @@
 import {AddressLocation} from './datum-initial.js';
-import {setMainMarker, setInitialAddress, deleteMarker} from './map.js';
+import {setMainMarker, deleteMarker} from './map.js';
 import {isEscEvent, isEnterEvent} from './util.js';
 
 const TIMER_POPUP_SUCCESS = 3000;
@@ -39,7 +39,6 @@ const openPopupError = () => {
 const closePopupError = () => {
   popupError.classList.add('hidden');
   buttonSubmit.toggleAttribute('disabled', false);
-  //popupError.remove();
 };
 
 buttonError.addEventListener('click', () => {

@@ -55,9 +55,6 @@ const deleteMarker = () => {
   marker.remove();
 };
 
-const setInitialAddress = () => {
-  mainAddress.value = `${AddressLocation.lat}, ${AddressLocation.lng}`;
-};
 
 const addMarkers = (arrayAdvertisements)=>{
   arrayAdvertisements.forEach((point) => {
@@ -90,4 +87,4 @@ const addMarkers = (arrayAdvertisements)=>{
   });
 }
 
-export {deleteMarker, addMarkers, setMainMarker, setInitialAddress};
+export {deleteMarker, addMarkers, setMainMarker};
