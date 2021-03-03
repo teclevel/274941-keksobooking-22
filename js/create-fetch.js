@@ -1,9 +1,14 @@
+import {showMessageError} from './util.js'
+
 const getData = (onSuccess) => {
   fetch('https://22.javascript.pages.academy/keksobooking/data')
     .then((response) => response.json())
-    .then(onSuccess);
-};
+    .then(onSuccess)
 
+    .catch(() => {
+      showMessageError('Ошибка получения данных')
+    });
+};
 
 
 const sendData = (onSuccess, onFail, body) => {
@@ -20,9 +25,9 @@ const sendData = (onSuccess, onFail, body) => {
       onFail();
     }
   })
-  // .catch(() => {
-  //   console.log('error!')
-  // });
+    .catch(() => {
+      showMessageError('Ошибка отправления данных')
+    });
 };
 
 export {getData, sendData};
