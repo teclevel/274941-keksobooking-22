@@ -46,11 +46,11 @@ buttonError.addEventListener('click', () => {
   closePopupError();
 });
 
-buttonReset.addEventListener('click', (evt) => {//?????
+buttonReset.addEventListener('click', (evt) => {
   evt.preventDefault();
+  adForm.reset();
   deleteMarker();
   setMainMarker(AddressLocation);
-  setInitialAddress();
 });
 
 document.addEventListener('keydown', (evt) => {
