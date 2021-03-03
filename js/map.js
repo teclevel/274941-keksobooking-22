@@ -1,7 +1,7 @@
 /* global L:readonly */
 import {toggleSite} from './activation-site.js';
 import {createCustomPopup} from './similar-element.js';
-import {AddressLocation} from './datum-initial.js';
+import {addressLocation} from './datum-initial.js';
 
 toggleSite(true);
 
@@ -10,7 +10,7 @@ const map = L.map('map-canvas')
     toggleSite(false);
   })
   .setView(
-    AddressLocation, 10);
+    addressLocation, 10);
 
 L.tileLayer(                                   //добавляет карту от OpenStreetMap
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -49,7 +49,7 @@ const setMainMarker = (location) => {
   });
 };
 
-setMainMarker(AddressLocation);
+setMainMarker(addressLocation);
 
 const deleteMarker = () => {
   marker.remove();

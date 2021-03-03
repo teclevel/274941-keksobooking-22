@@ -1,6 +1,7 @@
-import {AddressLocation} from './datum-initial.js';
+import {addressLocation} from './datum-initial.js';
 import {setMainMarker, deleteMarker} from './map.js';
 import {isEscEvent, isEnterEvent} from './util.js';
+import {setInitialPrice} from './user-form.js';
 
 const TIMER_POPUP_SUCCESS = 3000;
 
@@ -27,7 +28,8 @@ const openPopupSuccess = () => {
     popupSuccess.remove();
     adForm.reset();
     deleteMarker();
-    setMainMarker(AddressLocation);
+    setMainMarker(addressLocation);
+    setInitialPrice();
   },TIMER_POPUP_SUCCESS);
 };
 
@@ -49,7 +51,8 @@ buttonReset.addEventListener('click', (evt) => {
   evt.preventDefault();
   adForm.reset();
   deleteMarker();
-  setMainMarker(AddressLocation);
+  setMainMarker(addressLocation);
+  setInitialPrice();
 });
 
 document.addEventListener('keydown', (evt) => {
