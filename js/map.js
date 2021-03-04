@@ -2,7 +2,7 @@
 import {toggleSite} from './activation-site.js';
 import {createCustomPopup} from './similar-element.js';
 import {addressLocation} from './datum-initial.js';
-
+import {getData} from './create-fetch.js'
 toggleSite(true);
 
 const map = L.map('map-canvas')
@@ -86,5 +86,7 @@ const addMarkers = (arrayAdvertisements)=>{
       );
   });
 }
+
+getData(addMarkers);
 
 export {deleteMarker, addMarkers, setMainMarker};
