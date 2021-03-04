@@ -50,24 +50,16 @@ const openPopupError = () => {
   popupError.classList.remove('hidden');
   buttonSubmit.toggleAttribute('disabled', true);
   document.addEventListener('keydown', onPopupErrorEsc);
-  document.addEventListener('keydown', onPopupErrorEnter);
 };
 
 const closePopupError = () => {
   popupError.classList.add('hidden');
   buttonSubmit.toggleAttribute('disabled', false);
   document.removeEventListener('keydown', onPopupErrorEsc);
-  document.removeEventListener('keydown', onPopupErrorEnter);
 };
 
 const onPopupErrorEsc = (evt) => {
   if (isEscEvent(evt)){
-    closePopupError();
-  }
-};
-
-const onPopupErrorEnter = (evt) => {
-  if (isEnterEvent(evt)){
     closePopupError();
   }
 };
