@@ -41,10 +41,9 @@ const closePopupSuccess = () => {
 };
 
 const onPopupSuccessEsc = (evt) => {
-    if (isEscEvent(evt)){
-      closePopupSuccess();
-      console.log('esc')
-    }
+  if (isEscEvent(evt)){
+    closePopupSuccess();
+  }
 };
 
 const openPopupError = () => {
@@ -62,15 +61,15 @@ const closePopupError = () => {
 };
 
 const onPopupErrorEsc = (evt) => {
-    if (isEscEvent(evt)){
-      closePopupError();
-    }
+  if (isEscEvent(evt)){
+    closePopupError();
+  }
 };
 
 const onPopupErrorEnter = (evt) => {
-    if (isEnterEvent(evt)){
-      closePopupError();
-    }
+  if (isEnterEvent(evt)){
+    closePopupError();
+  }
 };
 
 buttonError.addEventListener('click', () => {
