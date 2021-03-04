@@ -1,6 +1,6 @@
 import {addressLocation} from './datum-initial.js';
 import {setMainMarker, deleteMarker} from './map.js';
-import {isEscEvent, isEnterEvent} from './util.js';
+import {isEscEvent} from './util.js';
 import {setInitialPrice} from './user-form.js';
 
 
