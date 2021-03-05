@@ -1,8 +1,4 @@
-import './similar-element.js';
-import './map.js';
-import './user-form.js';
+import {setUserFormSubmit} from './user-form.js';
+import {openPopupSuccess} from './popup.js';
 
-
-
-
-
+setUserFormSubmit(openPopupSuccess);

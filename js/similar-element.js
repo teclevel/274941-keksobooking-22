@@ -1,4 +1,4 @@
-import {Housing} from './datum-initial.js'
+import {housing} from './datum-initial.js'
 
 const balloonTemplate = document.querySelector('#card').content.querySelector('.popup');
 
@@ -69,7 +69,7 @@ const createCustomPopup = (point) => {
 
 
   const typeOfHousing = newAdvertisement.querySelector('.popup__type');
-  typeOfHousing.textContent = Housing[offer.type];
+  typeOfHousing.textContent = housing[offer.type];
 
   return newAdvertisement;
 };

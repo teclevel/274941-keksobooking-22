@@ -1,18 +1,49 @@
 /* global L:readonly */
 import {toggleSite} from './activation-site.js';
-import {arrayAdvertisements} from './advertisement.js';
 import {createCustomPopup} from './similar-element.js';
+import {addressLocation} from './datum-initial.js';
+import {getData} from './create-fetch.js'
 
 toggleSite(true);
+
+const addMarkers = (arrayAdvertisements)=>{
+  arrayAdvertisements.forEach((point) => {
+    const {lat, lng} = point.location;
+
+    const icon = L.icon({
+      iconUrl: './img/pin.svg',
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+    });
+
+    const marker = L.marker(
+      {
+        lat,
+        lng,
+      },
+      {
+        icon,
+      },
+    );
+
+    marker
+      .addTo(map)
+      .bindPopup(
+        createCustomPopup(point),
+        {
+          keepInView: true,
+        },
+      );
+  });
+}
 
 const map = L.map('map-canvas')
   .on('load', () => {                          //подписка на события. здесь инициализация карты
     toggleSite(false);
+    getData(addMarkers);
   })
-  .setView({
-    lat: 35.68170,
-    lng: 139.75388,
-  }, 10);
+  .setView(
+    addressLocation, 10);
 
 L.tileLayer(                                   //добавляет карту от OpenStreetMap
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -21,61 +52,40 @@ L.tileLayer(                                   //добавляет карту �
   },
 ).addTo(map);
 
-const mainPinIcon = L.icon({
-  iconUrl: './img/main-pin.svg',
-  iconSize: [50, 82],
-  iconAnchor: [25, 82],
-});
-
-const marker = L.marker(                       //маркер Токио
-  {
-    lat: 35.68170,
-    lng: 139.75388,
-  },
-  {
-    draggable: true,                           //разрешение на передвижение маркера
-    icon: mainPinIcon,
-  },
-);
-
-marker.addTo(map);
 
 const mainAddress = document.querySelector('#address');
-mainAddress.value = `${marker._latlng.lat}, ${marker._latlng.lng}`
 mainAddress.setAttribute('readonly', '');
 
-marker.on('moveend', (evt) => {
-  const position = evt.target.getLatLng();     //передает координаты маркера
-  mainAddress.value = `${position.lat.toFixed(5)}, ${position.lng.toFixed(5)}`;
-});
+let marker; //const ???
+const setMainMarker = (location) => {
 
-//marker.remove();                            //удаление маркера
-
-arrayAdvertisements.forEach((point) => {
-  const {x:lat, y:lng} = point.location;
-
-  const icon = L.icon({
-    iconUrl: './img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+  const mainPinIcon = L.icon({                  //созд маркер
+    iconUrl: './img/main-pin.svg',
+    iconSize: [50, 82],
+    iconAnchor: [25, 82],
   });
 
-  const marker = L.marker(
+  marker = L.marker(
+    location,
     {
-      lat,
-      lng,
-    },
-    {
-      icon,
+      draggable: true,                           //разрешение на передвижение маркера
+      icon: mainPinIcon,
     },
   );
+  marker.addTo(map);
 
-  marker
-    .addTo(map)
-    .bindPopup(
-      createCustomPopup(point),
-      {
-        keepInView: true,
-      },
-    );
-});
+  mainAddress.value = `${marker._latlng.lat}, ${marker._latlng.lng}`
+
+  marker.on('moveend', (evt) => {
+    const position = evt.target.getLatLng();     //передает координаты маркера
+    mainAddress.value = `${position.lat.toFixed(5)}, ${position.lng.toFixed(5)}`;
+  });
+};
+
+setMainMarker(addressLocation);
+
+const deleteMarker = () => {
+  marker.remove();
+};
+
+export {deleteMarker, setMainMarker};
