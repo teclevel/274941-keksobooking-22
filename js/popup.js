@@ -1,8 +1,7 @@
 import {addressLocation} from './datum-initial.js';
 import {setMainMarker, deleteMarker} from './map.js';
-import {isEscEvent} from './util.js';
 import {setInitialPrice} from './user-form.js';
-
+import {isEscEvent} from './util.js';
 
 const buttonSubmit = document.querySelector('.ad-form__submit')
 const buttonReset = document.querySelector('.ad-form__reset');
@@ -25,7 +24,7 @@ const buttonError = document.querySelector('.error__button');
 const openPopupSuccess = () => {
   popupSuccess.classList.remove('hidden');
   buttonSubmit.toggleAttribute('disabled', true);
-  document.addEventListener('click', closePopupSuccess);
+  document.addEventListener('click', onPopupSuccessClick);
   document.addEventListener('keydown', onPopupSuccessEsc);
 };
 
@@ -36,8 +35,12 @@ const closePopupSuccess = () => {
   deleteMarker();
   setMainMarker(addressLocation);
   setInitialPrice();
-  document.removeEventListener('click', closePopupSuccess);
+  document.removeEventListener('click', onPopupSuccessClick);
   document.removeEventListener('keydown', onPopupSuccessEsc);
+};
+
+const onPopupSuccessClick = () => {
+  closePopupSuccess();
 };
 
 const onPopupSuccessEsc = (evt) => {

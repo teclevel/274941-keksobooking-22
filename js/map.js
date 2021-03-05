@@ -3,11 +3,44 @@ import {toggleSite} from './activation-site.js';
 import {createCustomPopup} from './similar-element.js';
 import {addressLocation} from './datum-initial.js';
 import {getData} from './create-fetch.js'
+
 toggleSite(true);
+
+const addMarkers = (arrayAdvertisements)=>{
+  arrayAdvertisements.forEach((point) => {
+    const {lat, lng} = point.location;
+
+    const icon = L.icon({
+      iconUrl: './img/pin.svg',
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+    });
+
+    const marker = L.marker(
+      {
+        lat,
+        lng,
+      },
+      {
+        icon,
+      },
+    );
+
+    marker
+      .addTo(map)
+      .bindPopup(
+        createCustomPopup(point),
+        {
+          keepInView: true,
+        },
+      );
+  });
+}
 
 const map = L.map('map-canvas')
   .on('load', () => {                          //подписка на события. здесь инициализация карты
     toggleSite(false);
+    getData(addMarkers);
   })
   .setView(
     addressLocation, 10);
@@ -55,38 +88,4 @@ const deleteMarker = () => {
   marker.remove();
 };
 
-
-const addMarkers = (arrayAdvertisements)=>{
-  arrayAdvertisements.forEach((point) => {
-    const {lat, lng} = point.location;
-
-    const icon = L.icon({
-      iconUrl: './img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
-    });
-
-    const marker = L.marker(
-      {
-        lat,
-        lng,
-      },
-      {
-        icon,
-      },
-    );
-
-    marker
-      .addTo(map)
-      .bindPopup(
-        createCustomPopup(point),
-        {
-          keepInView: true,
-        },
-      );
-  });
-}
-
-getData(addMarkers);
-
-export {deleteMarker, addMarkers, setMainMarker};
+export {deleteMarker, setMainMarker};
