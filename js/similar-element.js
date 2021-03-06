@@ -18,12 +18,12 @@ const createCustomPopup = (point) => {
 
   switch (numberRooms % 10) {
     case 1:
-      prefixRooms = ' комната для '
+      prefixRooms = ' комната для ';
       break;
     case 2:
     case 3:
     case 4:
-      prefixRooms = ' комнаты для '
+      prefixRooms = ' комнаты для ';
       break;
 
     default: prefixRooms =' комнат для ';
