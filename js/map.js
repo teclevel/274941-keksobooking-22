@@ -4,10 +4,12 @@ import {createCustomPopup} from './similar-element.js';
 import {addressLocation} from './datum-initial.js';
 import {getData} from './create-fetch.js'
 
+const NUMBER_SIMILAR_AD = 10;
+
 toggleSite(true);
 
 const addMarkers = (arrayAdvertisements)=>{
-  arrayAdvertisements.forEach((point) => {
+  arrayAdvertisements.slice(0, NUMBER_SIMILAR_AD).forEach((point) => {
     const {lat, lng} = point.location;
 
     const icon = L.icon({

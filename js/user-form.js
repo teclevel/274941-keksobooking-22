@@ -67,7 +67,7 @@ const setUserFormSubmit = (onSuccess) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
-    sendData(
+    sendData(                                                       //  sendData(onSuccess, onFail, body)
       () => onSuccess(),
       () => openPopupError(),
       new FormData(evt.target),
