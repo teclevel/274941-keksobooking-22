@@ -2,41 +2,14 @@ import {housing} from './datum-initial.js'
 
 const balloonTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-const getAdvertisementRank = (advertisements) => {
-  const formFiltration =  document.querySelector('#map__filters');
-  const filterHousing = formFiltration.querySelector('#housing-type');
-  // const filterPrice = formFiltration.querySelector('#housing-prise');
-  const filterRooms = formFiltration.querySelector('#housing-rooms');
-  const filterGuest = formFiltration.querySelector('#housing-guests');
-  const {offer} = advertisements;
-  let rank = 0;
-  if (offer.type === filterHousing.value || Default.ANY_VALUE){
-    rank += 1;
-  }
 
-  // if (offer.price === ){
-  // }
-
-  if (offer.rooms === filterRooms.value || Default.ANY_VALUE){
-    rank += 1;
-  }
-
-  if (offer.guests === filterGuest.value || Default.ANY_VALUE){
-    rank += 1;
-  }
-
-  return rank
-}
-
-const createCustomPopup = (point) => {
-  const {author, offer} = point;
+const createCustomPopup = (advertisement) => {
+  const {author, offer} = advertisement;
   const newAdvertisement = balloonTemplate.cloneNode(true);
   newAdvertisement.querySelector('.popup__avatar').src = author.avatar;
   newAdvertisement.querySelector('.popup__title').textContent = offer.title;
   newAdvertisement.querySelector('.popup__text--address').textContent = offer.address;
   newAdvertisement.querySelector('.popup__text--price').textContent = offer.price + ' ₽/ночь';
-
-  
 
   const numberRooms = offer.rooms;
   let prefixRooms =' комнат для ';

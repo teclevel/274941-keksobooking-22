@@ -3,46 +3,67 @@ import {toggleSite} from './activation-site.js';
 import {createCustomPopup} from './similar-element.js';
 import {addressLocation} from './datum-initial.js';
 import {getData} from './create-fetch.js'
-
-const NUMBER_SIMILAR_AD = 10;
+import {getNumber, setFilterHousingChange, sortAdvertisements} from './filtration.js';
 
 toggleSite(true);
+const NUMBER_ADVERTISEMENTS = 10;
 
-const addMarkers = (arrayAdvertisements)=>{
-  arrayAdvertisements.slice(0, NUMBER_SIMILAR_AD).forEach((point) => {
-    const {lat, lng} = point.location;
+//let markerSimilarAd;
+const addMarkers = (arrayAdvertisements, numberAd) => {
+  arrayAdvertisements
+    .slice()
+    .sort(sortAdvertisements)
+    .slice(0, numberAd)
+    .forEach((point) => {
+      const {lat, lng} = point.location;
 
-    const icon = L.icon({
-      iconUrl: './img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
-    });
+      const icon = L.icon({
+        iconUrl: './img/pin.svg',
+        iconSize: [40, 40],
+        iconAnchor: [20, 40],
+      });
 
-    const marker = L.marker(
-      {
-        lat,
-        lng,
-      },
-      {
-        icon,
-      },
-    );
-
-    marker
-      .addTo(map)
-      .bindPopup(
-        createCustomPopup(point),
+      const markerSimilarAd = L.marker(
         {
-          keepInView: true,
+          lat,
+          lng,
+        },
+        {
+          icon,
         },
       );
-  });
-}
+      //if (!remove){
+      markerSimilarAd
+        .addTo(map)
+        .bindPopup(
+          createCustomPopup(point),
+          {
+            keepInView: true,
+          },
+        );
+      // } else {
+      //   markerSimilarAd.remove();
+      // }
+    });
+};
+
+
+
+const removeMarkerSimilarAd = (point, fn) => {
+  point.remove()
+  return fn;
+};
 
 const map = L.map('map-canvas')
   .on('load', () => {                          //подписка на события. здесь инициализация карты
     toggleSite(false);
-    getData(addMarkers);
+    getData((ad) => {
+      addMarkers(ad/* , NUMBER_ADVERTISEMENTS */);
+      setFilterHousingChange(() => addMarkers(ad, getNumber(ad)));
+
+
+    });
+
   })
   .setView(
     addressLocation, 10);
@@ -55,13 +76,14 @@ L.tileLayer(                                   //добавляет карту �
 ).addTo(map);
 
 
+
 const mainAddress = document.querySelector('#address');
 mainAddress.setAttribute('readonly', '');
 
 let marker; //const ???
 const setMainMarker = (location) => {
 
-  const mainPinIcon = L.icon({                  //созд маркер
+  const mainPinIcon = L.icon({                  //созд главного маркер
     iconUrl: './img/main-pin.svg',
     iconSize: [50, 82],
     iconAnchor: [25, 82],
@@ -90,4 +112,4 @@ const deleteMarker = () => {
   marker.remove();
 };
 
-export {deleteMarker, setMainMarker};
+export {deleteMarker, setMainMarker, addMarkers};
