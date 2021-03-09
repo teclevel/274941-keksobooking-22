@@ -3,7 +3,7 @@ import {openPopupSuccess} from './popup.js';
 
 setUserFormSubmit(openPopupSuccess);
 
-const eatPizza = function () {
+/* const eatPizza = function () {
   console.log('Ура! Пицца готова, пора подкрепиться.');
 }
 const makePizza = function (title, cb) {
@@ -18,3 +18,4 @@ const makePizza = function (title, cb) {
 
 makePizza('Пеперонни', eatPizza);
 //readBook();
+ */

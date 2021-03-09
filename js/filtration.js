@@ -1,4 +1,6 @@
-import {deleteMarker} from './map.js';
+import {deleteSimilarAdMarker} from './map.js';
+
+//import { addMarkers } from "./map.js";
 
 const formFiltration =  document.querySelector('.map__filters');
 const filterHousing = formFiltration.querySelector('#housing-type');
@@ -16,7 +18,7 @@ const filterHousing = formFiltration.querySelector('#housing-type');
 // };
 const setFilterHousingChange = (cb) => {
   filterHousing.addEventListener('change', () => {
-    deleteMarker();
+    //deleteSimilarAdMarker();
     cb();
   });
 

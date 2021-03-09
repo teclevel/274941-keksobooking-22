@@ -9,7 +9,7 @@ toggleSite(true);
 const NUMBER_ADVERTISEMENTS = 10;
 
 //let markerSimilarAd;
-const addMarkers = (arrayAdvertisements, numberAd) => {
+const addMarkers = (arrayAdvertisements, numberAd, remove = true) => {
   arrayAdvertisements
     .slice()
     .sort(sortAdvertisements)
@@ -32,36 +32,39 @@ const addMarkers = (arrayAdvertisements, numberAd) => {
           icon,
         },
       );
-      //if (!remove){
-      markerSimilarAd
-        .addTo(map)
-        .bindPopup(
-          createCustomPopup(point),
-          {
-            keepInView: true,
-          },
-        );
-      // } else {
-      //   markerSimilarAd.remove();
-      // }
+      if (!remove){
+        markerSimilarAd
+          .addTo(map)
+          .bindPopup(
+            createCustomPopup(point),
+            {
+              keepInView: true,
+            },
+          );
+      } else {
+        deleteSimilarAdMarker(markerSimilarAd);
+      }
     });
 };
 
 
-
-const removeMarkerSimilarAd = (point, fn) => {
-  point.remove()
-  return fn;
+const deleteSimilarAdMarker = (marker) => {
+  marker.remove();
 };
+
+    // const removeMarkerSimilarAd = (point, fn) => {
+//   point.remove()
+//   return fn;
+// };
+
+
 
 const map = L.map('map-canvas')
   .on('load', () => {                          //подписка на события. здесь инициализация карты
     toggleSite(false);
     getData((ad) => {
-      addMarkers(ad/* , NUMBER_ADVERTISEMENTS */);
-      setFilterHousingChange(() => addMarkers(ad, getNumber(ad)));
-
-
+      addMarkers(ad , NUMBER_ADVERTISEMENTS );
+      setFilterHousingChange(() => addMarkers(ad, getNumber(ad), false));
     });
 
   })
@@ -112,4 +115,4 @@ const deleteMarker = () => {
   marker.remove();
 };
 
-export {deleteMarker, setMainMarker, addMarkers};
+export {deleteMarker, setMainMarker, addMarkers, deleteSimilarAdMarker};
