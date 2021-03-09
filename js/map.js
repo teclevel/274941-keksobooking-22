@@ -5,11 +5,14 @@ import {addressLocation} from './datum-initial.js';
 import {getData} from './create-fetch.js'
 import {getNumber, setFilterHousingChange, sortAdvertisements} from './filtration.js';
 
+
 toggleSite(true);
 const NUMBER_ADVERTISEMENTS = 10;
 
 //let markerSimilarAd;
-const addMarkers = (arrayAdvertisements, numberAd, remove = true) => {
+const addMarkers = (arrayAdvertisements, numberAd) => {
+  // if (!remove){
+  // console.log('true')
   arrayAdvertisements
     .slice()
     .sort(sortAdvertisements)
@@ -32,30 +35,58 @@ const addMarkers = (arrayAdvertisements, numberAd, remove = true) => {
           icon,
         },
       );
-      if (!remove){
-        markerSimilarAd
-          .addTo(map)
-          .bindPopup(
-            createCustomPopup(point),
-            {
-              keepInView: true,
-            },
-          );
-      } else {
-        deleteSimilarAdMarker(markerSimilarAd);
-      }
+      markerSimilarAd
+        .addTo(map)
+        .bindPopup(
+          createCustomPopup(point),
+          {
+            keepInView: true,
+          },
+        );
     });
 };
 
 
-const deleteSimilarAdMarker = (marker) => {
-  marker.remove();
-};
+// const markers = [];
 
-    // const removeMarkerSimilarAd = (point, fn) => {
-//   point.remove()
-//   return fn;
+// const removeSimilarAdMarkers = () => {
+// markers.forEach((marker) => map.removeLayer(marker));
+// markers = [];
 // };
+
+
+let arrayAdvertisements = []
+const removeSimilarAdMarkers = (arrayAdvertisements) => {
+  arrayAdvertisements.forEach((marker) => {
+    const {lat, lng} = marker.location;
+    marker =  {
+      lat,
+      lng,
+    }
+    console.log(marker)
+    map.removeLayer(marker);
+    arrayAdvertisements = [];
+    console.log(arrayAdvertisements)
+  })
+};
+  // } else {
+  //   console.log('false')
+  //   arrayAdvertisements.forEach((point) => {
+  //     const {lat, lng} = point.location;
+  //     markerSimilarAd
+  //     map.removeLayer(point)
+  //     arrayAdvertisements = [];
+
+
+//       // const markers = L.layerGroup().addTo(map)
+//       // marker.addTo(markers)
+//       // markers.clearLayers()
+//   });
+// }
+
+
+
+
 
 
 
@@ -64,9 +95,11 @@ const map = L.map('map-canvas')
     toggleSite(false);
     getData((ad) => {
       addMarkers(ad , NUMBER_ADVERTISEMENTS );
-      setFilterHousingChange(() => addMarkers(ad, getNumber(ad), false));
+      setFilterHousingChange(() => {
+        removeSimilarAdMarkers(ad);
+        addMarkers(ad, getNumber(ad));
+      })
     });
-
   })
   .setView(
     addressLocation, 10);
@@ -115,4 +148,4 @@ const deleteMarker = () => {
   marker.remove();
 };
 
-export {deleteMarker, setMainMarker, addMarkers, deleteSimilarAdMarker};
+export {deleteMarker, setMainMarker};

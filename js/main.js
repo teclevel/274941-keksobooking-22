@@ -19,3 +19,17 @@ const makePizza = function (title, cb) {
 makePizza('Пеперонни', eatPizza);
 //readBook();
  */
+
+
+/* const markers = L.layerGroup().addTo(map)
+marker.addTo(markers)
+markers.clearLayers()
+
+————
+
+let markers = [];
+
+const removeMarkers = () => {
+markers.forEach((marker) => map.removeLayer(marker));
+markers = [];
+}; */

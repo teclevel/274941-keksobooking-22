@@ -1,4 +1,4 @@
-import {deleteSimilarAdMarker} from './map.js';
+//import {removeSimilarAdMarkers} from './map.js';
 
 //import { addMarkers } from "./map.js";
 
@@ -18,7 +18,7 @@ const filterHousing = formFiltration.querySelector('#housing-type');
 // };
 const setFilterHousingChange = (cb) => {
   filterHousing.addEventListener('change', () => {
-    //deleteSimilarAdMarker();
+
     cb();
   });
 
@@ -44,7 +44,7 @@ const getNumber = (advertisements) => {
       numberSimilarAd += 1;
     }
   });
-  console.log(numberSimilarAd);
+  //console.log(numberSimilarAd);
   return numberSimilarAd;
 };
 
