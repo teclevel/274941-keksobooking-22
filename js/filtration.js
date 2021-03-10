@@ -1,6 +1,6 @@
-//import {removeSimilarAdMarkers} from './map.js';
+import {markersSimilarAd} from './map.js';
 
-//import { addMarkers } from "./map.js";
+import {removeSimilarAdMarkers, NUMBER_ADVERTISEMENTS} from './map.js';
 
 const formFiltration =  document.querySelector('.map__filters');
 const filterHousing = formFiltration.querySelector('#housing-type');
@@ -13,16 +13,6 @@ const filterHousing = formFiltration.querySelector('#housing-type');
 // const listFilterGuest = filterGuest.children;
 // const listFilterFeatures = formFiltration.querySelectorAll('.checkbox');
 
-// const Default = {
-//   ANY_VALUE: 'any',
-// };
-const setFilterHousingChange = (cb) => {
-  filterHousing.addEventListener('change', () => {
-    //removeSimilarAdMarkers();
-    cb();
-  });
-
-};
 // filterPrice.addEventListener('change', () => {});
 // filterRooms.addEventListener('change', () => {});
 // filterGuest.addEventListener('change', () => {});
@@ -36,18 +26,31 @@ const setFilterHousingChange = (cb) => {
 //   features: ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"]
 
 //
+const DefaultValue = {
+  ANY_VALUE: 'any',
+};
+const setFilterHousingChange = (cb) => {
+  filterHousing.addEventListener('change', () => {
+    removeSimilarAdMarkers(markersSimilarAd);
+    // if (filterHousing.value === DefaultValue.value){
+    //   numberSimilarAd = NUMBER_ADVERTISEMENTS;
+    // }
+    cb();
+  });
+
+};
+let numberSimilarAd = 0;
 const getNumber = (advertisements) => {
-  let numberSimilarAd = 0;
+  numberSimilarAd = 0;
+
   advertisements.forEach(element => {
     const {offer} = element;
     if (offer.type === filterHousing.value){
       numberSimilarAd += 1;
     }
   });
-  //console.log(numberSimilarAd);
   return numberSimilarAd;
 };
-
 
 
 const getAdvertisementRank = (advertisements) => {

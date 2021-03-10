@@ -9,10 +9,8 @@ import {getNumber, setFilterHousingChange, sortAdvertisements} from './filtratio
 toggleSite(true);
 const NUMBER_ADVERTISEMENTS = 10;
 
-//let markerSimilarAd;
+const markersSimilarAd = [];
 const addMarkers = (arrayAdvertisements, numberAd) => {
-  // if (!remove){
-  // console.log('true')
   arrayAdvertisements
     .slice()
     .sort(sortAdvertisements)
@@ -43,62 +41,22 @@ const addMarkers = (arrayAdvertisements, numberAd) => {
             keepInView: true,
           },
         );
+      markersSimilarAd.push(markerSimilarAd);
     });
 };
 
-
-// const markers = [];
-
-// const removeSimilarAdMarkers = () => {
-// markers.forEach((marker) => map.removeLayer(marker));
-// markers = [];
-// };
-let markers=[];
-const removeSimilarAdMarkers = (arrayAdvertisements) => {
-   markers = arrayAdvertisements.map((address) => {
-      return address.location;
-  });
+const removeSimilarAdMarkers = (markers) => {
   markers.forEach((marker) => map.removeLayer(marker));
-  console.log(markers)
   markers = [];
-}
-// let arrayAdvertisements = []
-// const removeSimilarAdMarkers = (arrayAdvertisements) => {
-//   arrayAdvertisements.forEach((marker) => {
-//     const {lat, lng} = marker.location;
-//     marker =  {
-//       lat,
-//       lng,
-//     }
-//     console.log(marker)
-//     map.removeLayer(marker);
-//     arrayAdvertisements = [];
-//     console.log(arrayAdvertisements)
-//   })
-// };
-  // } else {
-  //   console.log('false')
-  //   arrayAdvertisements.forEach((point) => {
-  //     const {lat, lng} = point.location;
-  //     markerSimilarAd
-  //     map.removeLayer(point)
-  //     arrayAdvertisements = [];
-
-
-//       // const markers = L.layerGroup().addTo(map)
-//       // marker.addTo(markers)
-//       // markers.clearLayers()
-//   });
-// }
+};
 
 
 const map = L.map('map-canvas')
   .on('load', () => {                          //подписка на события. здесь инициализация карты
     toggleSite(false);
     getData((ad) => {
-      addMarkers(ad , NUMBER_ADVERTISEMENTS );
+      addMarkers(ad, NUMBER_ADVERTISEMENTS);
       setFilterHousingChange(() => {
-        removeSimilarAdMarkers(ad);
         addMarkers(ad, getNumber(ad));
       })
     });
@@ -118,7 +76,7 @@ L.tileLayer(                                   //добавляет карту �
 const mainAddress = document.querySelector('#address');
 mainAddress.setAttribute('readonly', '');
 
-let marker; //const ???
+let marker;
 const setMainMarker = (location) => {
 
   const mainPinIcon = L.icon({                  //созд главного маркер
@@ -150,4 +108,4 @@ const deleteMarker = () => {
   marker.remove();
 };
 
-export {deleteMarker, setMainMarker};
+export {deleteMarker, setMainMarker, markersSimilarAd, removeSimilarAdMarkers, NUMBER_ADVERTISEMENTS};
