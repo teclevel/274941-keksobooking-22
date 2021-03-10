@@ -53,22 +53,29 @@ const addMarkers = (arrayAdvertisements, numberAd) => {
 // markers.forEach((marker) => map.removeLayer(marker));
 // markers = [];
 // };
-
-
-let arrayAdvertisements = []
+let markers=[];
 const removeSimilarAdMarkers = (arrayAdvertisements) => {
-  arrayAdvertisements.forEach((marker) => {
-    const {lat, lng} = marker.location;
-    marker =  {
-      lat,
-      lng,
-    }
-    console.log(marker)
-    map.removeLayer(marker);
-    arrayAdvertisements = [];
-    console.log(arrayAdvertisements)
-  })
-};
+   markers = arrayAdvertisements.map((address) => {
+      return address.location;
+  });
+  markers.forEach((marker) => map.removeLayer(marker));
+  console.log(markers)
+  markers = [];
+}
+// let arrayAdvertisements = []
+// const removeSimilarAdMarkers = (arrayAdvertisements) => {
+//   arrayAdvertisements.forEach((marker) => {
+//     const {lat, lng} = marker.location;
+//     marker =  {
+//       lat,
+//       lng,
+//     }
+//     console.log(marker)
+//     map.removeLayer(marker);
+//     arrayAdvertisements = [];
+//     console.log(arrayAdvertisements)
+//   })
+// };
   // } else {
   //   console.log('false')
   //   arrayAdvertisements.forEach((point) => {
@@ -83,11 +90,6 @@ const removeSimilarAdMarkers = (arrayAdvertisements) => {
 //       // markers.clearLayers()
 //   });
 // }
-
-
-
-
-
 
 
 const map = L.map('map-canvas')

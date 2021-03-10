@@ -18,7 +18,7 @@ const filterHousing = formFiltration.querySelector('#housing-type');
 // };
 const setFilterHousingChange = (cb) => {
   filterHousing.addEventListener('change', () => {
-
+    //removeSimilarAdMarkers();
     cb();
   });
 
