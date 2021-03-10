@@ -3,7 +3,7 @@ import {toggleSite} from './activation-site.js';
 import {createCustomPopup} from './similar-element.js';
 import {addressLocation} from './datum-initial.js';
 import {getData} from './create-fetch.js'
-import {getNumber, setFilterHousingChange, sortAdvertisements} from './filtration.js';
+import {setFilterHousingChange, setFilterRoomsChange, filterAdvertisementsOfType} from './filtration.js';
 
 
 toggleSite(true);
@@ -12,8 +12,8 @@ const NUMBER_ADVERTISEMENTS = 10;
 const markersSimilarAd = [];
 const addMarkers = (arrayAdvertisements, numberAd) => {
   arrayAdvertisements
-    .slice()
-    .sort(sortAdvertisements)
+    //.slice()
+    .filter(filterAdvertisementsOfType)
     .slice(0, numberAd)
     .forEach((point) => {
       const {lat, lng} = point.location;
@@ -55,10 +55,14 @@ const map = L.map('map-canvas')
   .on('load', () => {                          //подписка на события. здесь инициализация карты
     toggleSite(false);
     getData((ad) => {
-      addMarkers(ad, NUMBER_ADVERTISEMENTS);
+      addMarkers(ad);
       setFilterHousingChange(() => {
-        addMarkers(ad, getNumber(ad));
+        addMarkers(ad);
       })
+      setFilterRoomsChange(() => {
+        addMarkers(ad);
+      })
+
     });
   })
   .setView(
