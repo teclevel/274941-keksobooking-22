@@ -1,6 +1,5 @@
 import {markersSimilarAd, removeSimilarAdMarkers} from './map.js';
 
-
 const DefaultValue = {
   ANY_VALUE: 'any',
   MIDDLE_MIN: 10000,
@@ -14,17 +13,8 @@ const filterHousing = formFiltration.querySelector('#housing-type');
 const filterPrice = formFiltration.querySelector('#housing-price');
 const filterRooms = formFiltration.querySelector('#housing-rooms');
 const filterGuests = formFiltration.querySelector('#housing-guests');
-// const listFilterHousing  = filterHousing.children;
-// const listFilterPrice = filterPrice.children;
-// const listFilterRooms = filterRooms.children;
-// const listFilterGuest = filterGuest.children;
-// const listFilterFeatures = formFiltration.querySelectorAll('.checkbox');
-
-
-// filterPrice.addEventListener('change', () => {});
-// filterRooms.addEventListener('change', () => {});
-// filterGuest.addEventListener('change', () => {});
-
+//const listFilterFeatures = formFiltration.querySelectorAll('input.checkbox:checked');//('.map__checkbox');
+// const listFilterFeatures = formFiltration.querySelector('.map__features').children;
 
 const setFilterHousingChange = (cb) => {
   filterHousing.addEventListener('change', () => {
@@ -53,24 +43,16 @@ const setFilterPriceChange = (cb) => {
     cb();
   });
 };
-// const Offer = {
-//   TYPE: house
-//   price: 42000
-//   rooms: 3
-//   guests: 6
-//   features: ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"]
 
-//Общий фильтр
-const filterAdvertisements = (element) => {
-  //console.log(filterAdvertisementsOfGuests(element))
-  // return filterAdvertisementsOfType(element)
-  // return filterAdvertisementsOfRooms(element)
-  // return filterAdvertisementsOfGuests(element)
-  return filterAdvertisementsOfPrice(element)
-};
-
+// const setFilterFeaturesChange = (cb) => {
+//   filterPrice.addEventListener('change', () => {
+//     removeSimilarAdMarkers(markersSimilarAd);
+//     cb();
+//   });
+// };
 
 //Фильтр по типу жилья
+
 const filterAdvertisementsOfType = (element) => {
   const {offer} = element;
   if (filterHousing.value === offer.type){
@@ -81,6 +63,7 @@ const filterAdvertisementsOfType = (element) => {
   }
 };
 //Фильтр по кол-ву комнат
+
 const filterAdvertisementsOfRooms = (element) => {
   const {offer} = element
   if (parseInt(filterRooms.value) === offer.rooms){
@@ -90,10 +73,11 @@ const filterAdvertisementsOfRooms = (element) => {
     return element;
   }
 };
+
 //Фильтр по количеству гостей
+
 const filterAdvertisementsOfGuests = (element) => {
   const {offer} = element
-  console.log(`${filterGuests.value} ${offer.guests}`)
   if (parseInt(filterGuests.value) === offer.guests){
     return element;
   }
@@ -101,36 +85,43 @@ const filterAdvertisementsOfGuests = (element) => {
     return element;
   }
 };
-// const filterAdvertisementsAny = (element) => {
-//   if (filterHousing.value === DefaultValue.ANY_VALUE){
-//     return element;
-//   }
-// };
-
-
-//   ANY_VALUE: 'any',
-//   MIDDLE_MIN: 10000,
-//   MIDDLE_MAX: 50000,
-//   LOW: 10000,
-//   HIGH: 50000,
-
-
 
 //Фильтр по цене
+
 const filterAdvertisementsOfPrice = (element) => {
   const {offer} = element
-// console.log(typeof offer.price)
-// console.log(typeof +filterPrice.value)
-const filterRooms = 
-  if (filterRooms=== &&  offer.price === 1){
+  if(filterPrice.value === filterPrice[0].value){
     return element;
   }
-  //  case DefaultValue.LOW > offer.price:
-  //     return element;
-  //   case DefaultValue.MIDDLE_MIN:
-  //   case DefaultValue.MIDDLE_MAX:
-  //   case DefaultValue.HIGH:
+  if(filterPrice.value === filterPrice[1].value && offer.price > DefaultValue.MIDDLE_MIN && offer.price <= DefaultValue.MIDDLE_MAX){
+    return element;
+  }
+  if(filterPrice.value === filterPrice[2].value && offer.price <= DefaultValue.LOW){
+    return element;
+  }
+  if(filterPrice.value === filterPrice[3].value && offer.price >= DefaultValue.HIGH){
+    return element;
+  }
 };
 
-export{setFilterHousingChange, setFilterPriceChange, setFilterRoomsChange, setFilterGuestsChange}
-export {filterAdvertisements};
+
+// Фильтр удобств
+// const getCheckedCheckBoxes() {
+//   var selectedCheckBoxes = document.querySelectorAll('input.checkbox:checked');
+
+//   var checkedValues = Array.from(selectedCheckBoxes).map(cb => cb.value);
+
+//   console.log(checkedValues);
+
+//   return checkedValues; //
+// }
+// const filterAdvertisementsOfFeatures = (element) => {
+//   const {offer} = element;
+//   return offer.features.filter()
+
+// };
+// //   features: ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"]
+// console.log(listFilterFeatures)
+
+export{setFilterHousingChange, setFilterPriceChange, setFilterRoomsChange, setFilterGuestsChange/* , setFilterFeaturesChange */}
+export{filterAdvertisementsOfType, filterAdvertisementsOfPrice, filterAdvertisementsOfRooms, filterAdvertisementsOfGuests/* , filterAdvertisementsOfFeatures */}
