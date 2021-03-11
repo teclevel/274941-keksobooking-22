@@ -3,18 +3,18 @@ import {toggleSite} from './activation-site.js';
 import {createCustomPopup} from './similar-element.js';
 import {addressLocation} from './datum-initial.js';
 import {getData} from './create-fetch.js'
-import {setFilterHousingChange, setFilterRoomsChange, filterAdvertisementsOfType} from './filtration.js';
+import {setFilterHousingChange, setFilterRoomsChange, setFilterGuestsChange, setFilterPriceChange, filterAdvertisements} from './filtration.js';
 
 
 toggleSite(true);
 const NUMBER_ADVERTISEMENTS = 10;
 
 const markersSimilarAd = [];
-const addMarkers = (arrayAdvertisements, numberAd) => {
+const addMarkers = (arrayAdvertisements) => {
   arrayAdvertisements
     //.slice()
-    .filter(filterAdvertisementsOfType)
-    .slice(0, numberAd)
+    .filter(filterAdvertisements)
+    .slice(0, NUMBER_ADVERTISEMENTS)
     .forEach((point) => {
       const {lat, lng} = point.location;
 
@@ -58,11 +58,18 @@ const map = L.map('map-canvas')
       addMarkers(ad);
       setFilterHousingChange(() => {
         addMarkers(ad);
-      })
+      });
       setFilterRoomsChange(() => {
         addMarkers(ad);
-      })
-
+      });
+      setFilterGuestsChange(() => {
+        addMarkers(ad);
+      });
+      setFilterPriceChange(() => {
+        addMarkers(ad);
+      });(() => {
+        addMarkers(ad);
+      });
     });
   })
   .setView(
