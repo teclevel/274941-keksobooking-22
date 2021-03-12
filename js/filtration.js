@@ -13,8 +13,20 @@ const filterHousing = formFiltration.querySelector('#housing-type');
 const filterPrice = formFiltration.querySelector('#housing-price');
 const filterRooms = formFiltration.querySelector('#housing-rooms');
 const filterGuests = formFiltration.querySelector('#housing-guests');
-//const listFilterFeatures = formFiltration.querySelectorAll('input.checkbox:checked');//('.map__checkbox');
-// const listFilterFeatures = formFiltration.querySelector('.map__features').children;
+// const listFilterFeatures = formFiltration.querySelectorAll('.map__checkbox');
+
+
+// const  getCheckedCheckBoxes = (list) => {
+//   const checkboxesChecked = [];
+//   for (let index = 0; index < list.length; index++) {
+//     if (list[index].checked) {
+//       checkboxesChecked.push(list[index].value);
+//     }
+//   }
+//   console.log(checkboxesChecked)
+//   return checkboxesChecked;
+// }
+// getCheckedCheckBoxes(listFilterFeatures);
 
 const setFilterHousingChange = (cb) => {
   filterHousing.addEventListener('change', () => {
@@ -45,11 +57,22 @@ const setFilterPriceChange = (cb) => {
 };
 
 // const setFilterFeaturesChange = (cb) => {
-//   filterPrice.addEventListener('change', () => {
-//     removeSimilarAdMarkers(markersSimilarAd);
-//     cb();
-//   });
+//   for(const element of listFilterFeatures) {
+//     element.addEventListener('change', () => {
+//       removeSimilarAdMarkers(markersSimilarAd);
+//       console.log('checked')
+//       cb();
+//     });
+//   }
 // };
+
+
+//для примера
+// const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
+// const result = words.filter(word =>{
+//   console.log(word.length > 6)
+// } );
+// console.log(result)
 
 //Фильтр по типу жилья
 
@@ -106,22 +129,26 @@ const filterAdvertisementsOfPrice = (element) => {
 
 
 // Фильтр удобств
-// const getCheckedCheckBoxes() {
-//   var selectedCheckBoxes = document.querySelectorAll('input.checkbox:checked');
 
-//   var checkedValues = Array.from(selectedCheckBoxes).map(cb => cb.value);
-
-//   console.log(checkedValues);
-
-//   return checkedValues; //
-// }
 // const filterAdvertisementsOfFeatures = (element) => {
 //   const {offer} = element;
+
+
 //   return offer.features.filter()
 
 // };
-// //   features: ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"]
-// console.log(listFilterFeatures)
+
+// console.log()
+//   features: ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"]
+
+
+// const filterAdvertisements = () => {
+//   filterAdvertisementsOfType
+//   filterAdvertisementsOfPrice
+//   filterAdvertisementsOfRooms
+//   filterAdvertisementsOfGuests
+// };
+
 
 export{setFilterHousingChange, setFilterPriceChange, setFilterRoomsChange, setFilterGuestsChange/* , setFilterFeaturesChange */}
 export{filterAdvertisementsOfType, filterAdvertisementsOfPrice, filterAdvertisementsOfRooms, filterAdvertisementsOfGuests/* , filterAdvertisementsOfFeatures */}
