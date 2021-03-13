@@ -3,8 +3,7 @@ import {toggleSite} from './activation-site.js';
 import {createCustomPopup} from './similar-element.js';
 import {addressLocation} from './datum-initial.js';
 import {getData} from './create-fetch.js'
-import {setFilterHousingChange, setFilterRoomsChange, setFilterGuestsChange, setFilterPriceChange/* , setFilterFeaturesChange */} from './filtration.js';
-import {filterAdvertisementsOfType, filterAdvertisementsOfPrice, filterAdvertisementsOfRooms, filterAdvertisementsOfGuests/* , filterAdvertisementsOfFeatures */} from './filtration.js';
+import {setFilterFormChange, filterAdvertisements} from './filtration.js';
 
 
 toggleSite(true);
@@ -13,12 +12,7 @@ const NUMBER_ADVERTISEMENTS = 10;
 const markersSimilarAd = [];
 const addMarkers = (arrayAdvertisements) => {
   arrayAdvertisements
-    //.slice()
-    .filter(filterAdvertisementsOfType)
-    .filter(filterAdvertisementsOfPrice)
-    .filter(filterAdvertisementsOfRooms)
-    .filter(filterAdvertisementsOfGuests)
-    //.filter(filterAdvertisementsOfFeatures)
+    .filter(filterAdvertisements)
     .slice(0, NUMBER_ADVERTISEMENTS)
     .forEach((point) => {
       const {lat, lng} = point.location;
@@ -61,21 +55,9 @@ const map = L.map('map-canvas')
     toggleSite(false);
     getData((ad) => {
       addMarkers(ad);
-      setFilterHousingChange(() => {
+      setFilterFormChange(() => {
         addMarkers(ad);
       });
-      setFilterRoomsChange(() => {
-        addMarkers(ad);
-      });
-      setFilterGuestsChange(() => {
-        addMarkers(ad);
-      });
-      setFilterPriceChange(() => {
-        addMarkers(ad);
-      });
-      // setFilterFeaturesChange(() => {
-      //   addMarkers(ad);
-      // });
     });
   })
   .setView(
