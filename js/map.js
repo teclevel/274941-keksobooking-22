@@ -1,13 +1,15 @@
 /* global L:readonly */
+/* global _:readonly */
 import {toggleSite} from './activation-site.js';
 import {createCustomPopup} from './similar-element.js';
 import {addressLocation} from './datum-initial.js';
 import {getData} from './create-fetch.js'
 import {setFilterFormChange, filterAdvertisements} from './filtration.js';
 
+const RERENDER_DELAY = 500;
+const NUMBER_ADVERTISEMENTS = 10;
 
 toggleSite(true);
-const NUMBER_ADVERTISEMENTS = 10;
 
 const markersSimilarAd = [];
 const addMarkers = (arrayAdvertisements) => {
@@ -55,9 +57,9 @@ const map = L.map('map-canvas')
     toggleSite(false);
     getData((ad) => {
       addMarkers(ad);
-      setFilterFormChange(() => {
-        addMarkers(ad);
-      });
+      setFilterFormChange( _.debounce(
+        () => addMarkers(ad),
+        RERENDER_DELAY));
     });
   })
   .setView(
@@ -69,9 +71,6 @@ L.tileLayer(                                   //добавляет карту �
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
 ).addTo(map);
-
-
-
 const mainAddress = document.querySelector('#address');
 mainAddress.setAttribute('readonly', '');
 
@@ -107,4 +106,4 @@ const deleteMarker = () => {
   marker.remove();
 };
 
-export {deleteMarker, setMainMarker, markersSimilarAd, removeSimilarAdMarkers, NUMBER_ADVERTISEMENTS};
+export {deleteMarker, setMainMarker, markersSimilarAd, removeSimilarAdMarkers};

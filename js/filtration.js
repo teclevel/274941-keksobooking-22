@@ -61,7 +61,7 @@ const getCheckedFeatures = () => {
 
 const  isFeatureInAd = (element) => {
   const {offer} = element;
-  const checkedList = getCheckedFeatures()
+  const checkedList = getCheckedFeatures();
   return checkedList.every((feature) => offer.features.includes(feature));
 };
 
@@ -69,8 +69,8 @@ const filterAdvertisements = (data) => {
   return isTypeOfHouse(data) &&
   isRoomsInAd(data) &&
   isGuestsInAd(data) &&
-  isPriceOfHouse(data)
-  && isFeatureInAd(data);
+  isPriceOfHouse(data)&&
+  isFeatureInAd(data);
 };
 
 export {setFilterFormChange, filterAdvertisements};
