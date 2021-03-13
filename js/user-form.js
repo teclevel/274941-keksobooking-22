@@ -2,12 +2,14 @@ import {price} from './datum-initial.js';
 import {openPopupError} from './popup.js';
 import {sendData} from './create-fetch.js';
 
+const DEFAULT_NUMBER = 1;
 const typeHousing = document.querySelector('#type');
 const priceHousing = document.querySelector('#price');
 const timeIn = document.querySelector('#timein');
 const timeOut = document.querySelector('#timeout');
 const adForm = document.querySelector('.ad-form');
 const fieldSelectRooms = adForm.querySelector('#room_number');
+const numberRooms = fieldSelectRooms.children;
 const fieldSelectGuests = adForm.querySelector('#capacity');
 const numberGuests = fieldSelectGuests.children;
 
@@ -31,9 +33,9 @@ selectTime(timeIn, timeOut);
 selectTime(timeOut, timeIn);
 
 const resetFieldGuest = () => {
-  for (let element of numberGuests) {
-    if (!(parseInt(element.value)===1)){
-      element.toggleAttribute('disabled', true);
+  for (const element of numberGuests) {
+    if (!(parseInt(element.value) === DEFAULT_NUMBER)){
+      element.setAttribute('disabled','');
     }
   }
 }
@@ -42,32 +44,33 @@ resetFieldGuest();
 
 fieldSelectRooms.addEventListener('change', () => {
   resetFieldGuest();
-  numberGuests[2].toggleAttribute('disabled', true);
+  numberGuests[2].setAttribute('disabled', '');
 
-  switch(parseInt(fieldSelectRooms.value)){
-    case 3:
-      numberGuests[0].toggleAttribute('disabled', false);
+  switch(fieldSelectRooms.value){
+
+    case numberRooms[2].value:
+      numberGuests[0].removeAttribute('disabled');
     // eslint-disable-next-line no-fallthrough
-    case 2:
-      numberGuests[1].toggleAttribute('disabled', false);
+    case numberRooms[1].value:
+      numberGuests[1].removeAttribute('disabled');
       // eslint-disable-next-line no-fallthrough
-    case 1:
-      numberGuests[2].toggleAttribute('disabled', false);
+    case numberRooms[0].value:
+      numberGuests[2].removeAttribute('disabled');
       fieldSelectGuests.value = numberGuests[2].value;
       break;
 
-    case 100:
-      numberGuests[3].toggleAttribute('disabled', false);
+    case numberRooms[3].value:
+      numberGuests[3].removeAttribute('disabled');
       fieldSelectGuests.value = numberGuests[3].value;
       break;
   }
-})
+});
 
 const setUserFormSubmit = (onSuccess) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
-    sendData(
+    sendData(                                                       //  sendData(onSuccess, onFail, body)
       () => onSuccess(),
       () => openPopupError(),
       new FormData(evt.target),
