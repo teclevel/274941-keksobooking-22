@@ -49,7 +49,7 @@ const isPriceOfHouse = (element) => {
   filterPrice.value === filterPrice[3].value && offer.price >= DefaultValue.HIGH;
 };
 
-const isCheckedFeatures = () => {
+const getCheckedFeatures = () => {
   const checkboxesChecked= [];
   for (let element of  listFilterFeatures){
     if (element.checked){
@@ -61,8 +61,7 @@ const isCheckedFeatures = () => {
 
 const  isFeatureInAd = (element) => {
   const {offer} = element;
-  const checkedList = isCheckedFeatures()
-  checkedList.map(el => el.value);
+  const checkedList = getCheckedFeatures()
   return checkedList.every((feature) => offer.features.includes(feature));
 };
 
