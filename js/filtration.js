@@ -50,7 +50,7 @@ const isPriceOfHouse = (element) => {
 };
 
 const getCheckedFeatures = () => {
-  const checkboxesChecked= [];
+  const checkboxesChecked = [];
   for (let element of  listFilterFeatures){
     if (element.checked){
       checkboxesChecked.push(element.value);
@@ -61,8 +61,8 @@ const getCheckedFeatures = () => {
 
 const  isFeatureInAd = (element) => {
   const {offer} = element;
-  const checkedList = getCheckedFeatures();
-  return checkedList.every((feature) => offer.features.includes(feature));
+  const checkedItems = getCheckedFeatures();
+  return checkedItems.every((feature) => offer.features.includes(feature));
 };
 
 const filterAdvertisements = (data) => {
