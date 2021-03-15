@@ -6,8 +6,6 @@ const isEscEvent = (evt) => {
 const showMessageError = (textAlert) => {
   const message = document.createElement('div');
   message.textContent = textAlert;
-  document.body.append(message);
-
   message.style.position = 'fixed';
   message.style.zIndex = '1000';
   message.style.top = '20px';
@@ -18,6 +16,7 @@ const showMessageError = (textAlert) => {
   message.style.textAlign = 'center';
   message.style.padding = '10px 10px';
   message.style.backgroundColor = 'red';
+  document.body.append(message);
 
   setTimeout(() => {
     message.remove();
