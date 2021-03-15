@@ -1,4 +1,5 @@
-import {showMessageError} from './util.js'
+import {toggleFilters} from './activation-site.js';
+import {showMessageError} from './util.js';
 
 const getData = (onSuccess) => {
   fetch('https://22.javascript.pages.academy/keksobooking/data')
@@ -6,7 +7,8 @@ const getData = (onSuccess) => {
     .then(onSuccess)
 
     .catch(() => {
-      showMessageError('Ошибка получения данных')
+      showMessageError('Ошибка получения данных');
+      toggleFilters(true);
     });
 };
 

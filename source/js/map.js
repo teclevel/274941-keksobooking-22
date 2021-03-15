@@ -1,6 +1,6 @@
 /* global L:readonly */
 /* global _:readonly */
-import {toggleSite} from './activation-site.js';
+import {toggleFilters, toggleFormAd} from './activation-site.js';
 import {createCustomPopup} from './similar-element.js';
 import {addressLocation} from './datum-initial.js';
 import {getData} from './create-fetch.js'
@@ -9,7 +9,6 @@ import {setFilterFormChange, filterAdvertisements} from './filtration.js';
 const RERENDER_DELAY = 500;
 const NUMBER_ADVERTISEMENTS = 10;
 
-toggleSite(true);
 
 const markersSimilarAd = [];
 const addMarkers = (arrayAdvertisements) => {
@@ -51,10 +50,13 @@ const removeSimilarAdMarkers = (markers) => {
   markers = [];
 };
 
+toggleFormAd(true);
+toggleFilters(true);
 
 const map = L.map('map-canvas')
   .on('load', () => {                          //подписка на события. здесь инициализация карты
-    toggleSite(false);
+    toggleFormAd(false);
+    toggleFilters(false);
     getData((ad) => {
       addMarkers(ad);
       setFilterFormChange( _.debounce(
