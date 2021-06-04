@@ -4,14 +4,14 @@ import {resetFieldGuest, setInitialPrice} from './user-form.js';
 import {isEscEvent} from './util.js';
 import {removeImage, removeAvatar} from './avatar.js';
 
-const buttonSubmit = document.querySelector('.ad-form__submit')
+const buttonSubmit = document.querySelector('.ad-form__submit');
 const buttonReset = document.querySelector('.ad-form__reset');
 const adForm = document.querySelector('.ad-form');
 
 const templateSuccess = document.querySelector('#success')
   .content.querySelector('.success');
 const popupSuccess = templateSuccess.cloneNode(true);
-popupSuccess.classList.add('hidden')
+popupSuccess.classList.add('hidden');
 document.body.append(popupSuccess);
 
 const templateError = document.querySelector('#error')
