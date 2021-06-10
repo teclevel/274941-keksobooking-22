@@ -2,7 +2,7 @@ import {price} from './datum-initial.js';
 import {openPopupError} from './popup.js';
 import {sendData} from './create-fetch.js';
 
-const DEFAULT_NUMBER = 1;
+// const DEFAULT_NUMBER = 1;
 const typeHousing = document.querySelector('#type');
 const priceHousing = document.querySelector('#price');
 const timeIn = document.querySelector('#timein');
@@ -34,16 +34,13 @@ selectTime(timeOut, timeIn);
 
 const resetFieldGuest = () => {
   for (const element of numberGuests) {
-    if (!(parseInt(element.value) === DEFAULT_NUMBER)){
-      element.setAttribute('disabled','');
-    }
+    // if (!(parseInt(element.value) === DEFAULT_NUMBER)){
+    element.setAttribute('disabled','');
+    // }
   }
-}
+};
 
-resetFieldGuest();
-
-fieldSelectRooms.addEventListener('change', () => {
-  resetFieldGuest();
+const changeSelectRooms = () => {
   numberGuests[2].setAttribute('disabled', '');
 
   switch(fieldSelectRooms.value){
@@ -64,6 +61,13 @@ fieldSelectRooms.addEventListener('change', () => {
       fieldSelectGuests.value = numberGuests[3].value;
       break;
   }
+};
+
+resetFieldGuest();
+
+fieldSelectRooms.addEventListener('change', () => {
+  resetFieldGuest();
+  changeSelectRooms();
 });
 
 const setUserFormSubmit = (onSuccess) => {
