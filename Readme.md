@@ -48,6 +48,13 @@ git clone SSH-адрес_вашего_форка
 
 Репозиторий создан для обучения на интенсивном онлайн‑курсе «[JavaScript. Профессиональная разработка веб-интерфейсов](https://htmlacademy.ru/intensive/javascript)» от [HTML Academy](https://htmlacademy.ru).
 
+#### сборка
+собираются только файлы js,
+остальные файлы скопированы
+
+#### в script package.json
+"build": "webpack --mode production"  - на продакшн
+"build": "webpack --mode development" - для разработки
 
 #### Сборка проекта
 npm run build
