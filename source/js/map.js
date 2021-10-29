@@ -35,10 +35,10 @@ const addMarkers = (arrayAdvertisements) => {
       );
       markerSimilarAd
         .addTo(map)
-        .bindPopup(
+        .bindPopup(                                     //привязка балуна
           createCustomPopup(point),
           {
-            keepInView: true,
+            keepInView: true,                            //перемещение карты если не влезает балун
           },
         );
       markersSimilarAd.push(markerSimilarAd);
@@ -53,8 +53,8 @@ const removeSimilarAdMarkers = (markers) => {
 toggleFormAd(true);
 toggleFilters(true);
 
-const map = L.map('map-canvas')
-  .on('load', () => {                          //подписка на события. здесь инициализация карты
+const map = L.map('map-canvas')                  // 1.создание карты в блоке map-canvas
+  .on('load', () => {                            //подписка на события. здесь инициализация карты
     toggleFormAd(false);
     toggleFilters(false);
     getData((ad) => {
@@ -64,10 +64,10 @@ const map = L.map('map-canvas')
         RERENDER_DELAY));
     });
   })
-  .setView(
+  .setView(                                        // центр карты и масштаб.
     addressLocation, 10);
 
-L.tileLayer(                                   //добавляет карту от OpenStreetMap
+L.tileLayer(                                      //2. добавляет слои карты от OpenStreetMap
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -79,25 +79,25 @@ mainAddress.setAttribute('readonly', '');
 let marker;
 const setMainMarker = (location) => {
 
-  const mainPinIcon = L.icon({                  //созд главного маркер
+  const mainPinIcon = L.icon({                  //замена  главного маркер на свой
     iconUrl: './img/main-pin.svg',
-    iconSize: [50, 82],
-    iconAnchor: [25, 82],
+    iconSize: [52, 52],
+    iconAnchor: [26, 52],
   });
 
-  marker = L.marker(
+  marker = L.marker(                             // создание маркера
     location,
     {
       draggable: true,                           //разрешение на передвижение маркера
-      icon: mainPinIcon,
+      icon: mainPinIcon,                         //для замены маркера
     },
   );
-  marker.addTo(map);
+  marker.addTo(map);                             // поместить маркер на карту
 
   mainAddress.value = `${marker._latlng.lat}, ${marker._latlng.lng}`
 
   marker.on('moveend', (evt) => {
-    const position = evt.target.getLatLng();     //передает координаты маркера
+    const position = evt.target.getLatLng();     //передает координаты маркера после перемещения
     mainAddress.value = `${position.lat.toFixed(5)}, ${position.lng.toFixed(5)}`;
   });
 };
